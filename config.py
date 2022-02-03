@@ -40,35 +40,35 @@ terminal = '/usr/bin/kitty'
 
 ##########my functions#############
 def screenLock(qtile):
-	subprocess.call(['/home/roshan/.config/qtile/scripts/screenLock.sh'])
+    subprocess.call(['/home/roshan/.config/qtile/scripts/screenLock.sh'])
 
 def lowerVolume(qtile):
-	subprocess.call(['/home/roshan/.config/qtile/scripts/lowerVolume.sh'])
+    subprocess.call(['/home/roshan/.config/qtile/scripts/lowerVolume.sh'])
 
 def raiseVolume(qtile):
-	subprocess.call(['/home/roshan/.config/qtile/scripts/raiseVolume.sh'])
+    subprocess.call(['/home/roshan/.config/qtile/scripts/raiseVolume.sh'])
 
 def muteUnmute(qtile):
-	subprocess.call(['/home/roshan/.config/qtile/scripts/muteUnmute.sh'])
+    subprocess.call(['/home/roshan/.config/qtile/scripts/muteUnmute.sh'])
 
 def brightDown(qtile):
-	subprocess.call(['/home/roshan/.config/qtile/scripts/brightDown.sh'])
+    subprocess.call(['/home/roshan/.config/qtile/scripts/brightDown.sh'])
 
 def brightUp(qtile):
-	subprocess.call(['/home/roshan/.config/qtile/scripts/brightUp.sh'])
+    subprocess.call(['/home/roshan/.config/qtile/scripts/brightUp.sh'])
 
 def screenshot(qtile):
-	#subprocess.call(['/home/roshan/.config/qtile/scripts/screenshot_full.sh'])
-	os.system('flameshot full -p /home/roshan/Pictures/Screenshots/')
+    #subprocess.call(['/home/roshan/.config/qtile/scripts/screenshot_full.sh'])
+    os.system('flameshot full -p /home/roshan/Pictures/Screenshots/')
 
 def rofi(qtile):
-	subprocess.call(['/home/roshan/.config/qtile/scripts/rofi.sh'])
+    subprocess.call(['/home/roshan/.config/qtile/scripts/rofi.sh'])
 
 #def minimize(qtile):
-#	subprocess.call(['/home/roshan/.config/qtile/scripts/minimize.sh'])
+#   subprocess.call(['/home/roshan/.config/qtile/scripts/minimize.sh'])
 #
 #def unminimize(qtile):
-#	subprocess.call(['/home/roshan/.config/qtile/scripts/unminimize.sh'])
+#   subprocess.call(['/home/roshan/.config/qtile/scripts/unminimize.sh'])
 ####################################
 
 
@@ -119,7 +119,7 @@ keys = [
     Key([mod], "comma", lazy.layout.normalize(), desc="Reset all window sizes"),
     Key([mod], "period", lazy.layout.grow()),
     Key([mod], "n", lazy.layout.shrink()),
-    Key([mod], "m", lazy.layout.maximize()),	
+    Key([mod], "m", lazy.layout.maximize()),
 
     # Toggle between split and unsplit sides of stack.
     # Split = all windows displayed
@@ -149,7 +149,7 @@ keys = [
     Key([mod],"w",lazy.function(rofi), desc='Opens rofi run menu'),
     #Key(['mod1', "shift"], "m", lazy.function(unminimize), desc="unminimize window"), 
     #Key(['mod1'], "m", lazy.function(minimize)), 
-]
+    ]
 
 groups = [Group(i) for i in "123456789"]
 
@@ -166,7 +166,7 @@ for i in groups:
         # # mod1 + shift + letter of group = move focused window to group
         # Key([mod, "shift"], i.name, lazy.window.togroup(i.name),
         #     desc="move focused window to group {}".format(i.name)),
-    ])
+        ])
 
 layouts = [
     layout.Columns(border_focus_stack=['#d75f5f', '#8f3d3d'], border_width=2, margin=1, margin_on_single=0),
@@ -184,13 +184,13 @@ layouts = [
     #layout.VerticalTile(),
     #layout.Zoomy(),
     #layout.Floating()
-]
+    ]
 
 widget_defaults = dict(
     font='sans',
     fontsize=12,
     padding=3,
-)
+    )
 extension_defaults = widget_defaults.copy()
 
 screens = [
@@ -200,34 +200,33 @@ screens = [
 	),
     Screen(
         top=bar.Bar(
-            [
-                #widget.CurrentLayout(),
-                widget.GroupBox(),
-                widget.Prompt(),
-		widget.Notify(),
-		widget.Spacer(mouse_callbacks={'Button1':partial(os.system,'rofi -show run &')}),
-                widget.Clock(format='%d/%m %a %I:%M %p', mouse_callbacks={'Button1':partial(os.system,'zenity --calendar &')}),
-		widget.Spacer(mouse_callbacks={'Button1':partial(os.system,'flameshot gui -p /home/roshan/Pictures/Screenshots/')}),
-                widget.Chord(
-                    chords_colors={
-                        'launch': ("#ff0000", "#ffffff"),
+            [#widget.CurrentLayout(),
+            widget.GroupBox(),
+            widget.Prompt(),
+            widget.Notify(),
+            widget.Spacer(mouse_callbacks={'Button1':partial(os.system,'rofi -show run &')}),
+            widget.Clock(format='%d/%m %a %I:%M %p', mouse_callbacks={'Button1':partial(os.system,'zenity --calendar &')}),
+            widget.Spacer(mouse_callbacks={'Button1':partial(os.system,'flameshot gui -p /home/roshan/Pictures/Screenshots/')}),
+            widget.Chord(
+                chords_colors={
+                    'launch': ("#ff0000", "#ffffff"),
                     },
                     name_transform=lambda name: name.upper(),
-                ),
-                #widget.TextBox("default config", name="default"),
-                #widget.TextBox("Press &lt;M-r&gt; to spawn", foreground="#d75f5f"),
-		#widget.Wlan(),
-                widget.Systray(),
-		#widget.PulseVolume(),
-		#widget.Backlight(),
-		widget.Sep(),
-		widget.Battery(format='{char}{percent:2.2%}',notify_below=10),
-		widget.Sep(),
-		#widget.Net(),
-		#widget.Bluetooth(),
-		#widget.TextBox(text='reload config',mouse_callbacks={'Button1': lambda:qtile.lazy.reload_config()}),
-		#widget.Sep(),
-		#widget.QuickExit(default_text= '[Logout]'),
+                    ),
+            #widget.TextBox("default config", name="default"),
+            #widget.TextBox("Press &lt;M-r&gt; to spawn", foreground="#d75f5f"),
+            #widget.Wlan(),
+            widget.Systray(),
+            #widget.PulseVolume(),
+            #widget.Backlight(),
+            widget.Sep(),
+            widget.Battery(format='{char}{percent:2.2%}',notify_below=10),
+            widget.Sep(),
+            #widget.Net(),
+            #widget.Bluetooth(),
+            #widget.TextBox(text='reload config',mouse_callbacks={'Button1': lambda:qtile.lazy.reload_config()}),
+            #widget.Sep(),
+            #widget.QuickExit(default_text= '[Logout]'),
             ],
             24,
             # border_width=[2, 0, 2, 0],  # Draw top and bottom borders
@@ -259,7 +258,7 @@ floating_layout = layout.Floating(float_rules=[
     Match(wm_class='ssh-askpass'),  # ssh-askpass
     Match(title='branchdialog'),  # gitk
     Match(title='pinentry'),  # GPG key password entry
-])
+    ])
 auto_fullscreen = True
 focus_on_window_activation = "smart"
 reconfigure_screens = True
@@ -280,5 +279,5 @@ wmname = "LG3D"
 
 @hook.subscribe.startup_once
 def autostart():
-	path = '/home/roshan/.config/qtile/scripts/autostart.sh'
-	subprocess.call([path])
+    path = '/home/roshan/.config/qtile/scripts/autostart.sh'
+    subprocess.call([path])
