@@ -32,7 +32,6 @@ from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 import os, subprocess #for the autostart
 from functools import partial
-from scripts.floating_window_snapping import move_snap_window
 #import dbus_next #for bluetooth
 
 mod = "mod4"
@@ -195,6 +194,10 @@ widget_defaults = dict(
 extension_defaults = widget_defaults.copy()
 
 screens = [
+	Screen(
+	top=bar.Bar(
+		[widget.GroupBox()],24),
+	),
     Screen(
         top=bar.Bar(
             [
@@ -235,7 +238,7 @@ screens = [
 
 # Drag floating layouts.
 mouse = [
-    Drag([mod], "Button1", move_snap_window(snap_dist=40),
+    Drag([mod], "Button1", lazy.window.set_position_floating(),
          start=lazy.window.get_position()),
     Drag([mod], "Button3", lazy.window.set_size_floating(),
          start=lazy.window.get_size()),
