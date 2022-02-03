@@ -63,7 +63,7 @@ def screenshot(qtile):
     os.system('flameshot full -p /home/roshan/Pictures/Screenshots/')
 
 def rofi(qtile):
-    subprocess.call(['/home/roshan/.config/qtile/scripts/rofi.sh'])
+    os.system('rofi -show run')
 
 #def minimize(qtile):
 #   subprocess.call(['/home/roshan/.config/qtile/scripts/minimize.sh'])
