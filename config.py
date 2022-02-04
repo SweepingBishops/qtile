@@ -239,7 +239,7 @@ screens = [
             widget.Sep(),
             widget.Systray(),
             widget.Sep(),
-            widget.PulseVolume(),
+            widget.PulseVolume(fmt='Vol:{}'),
             #widget.Backlight(),
             widget.Sep(),
             widget.Battery(format='{char}{percent:2.2%}',notify_below=10),
