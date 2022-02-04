@@ -138,7 +138,7 @@ keys = [
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
     Key([mod], "r", lazy.spawncmd(),
         desc="Spawn a command using a prompt widget"),
-    EzKey("A-z",lazy.spawn("vivaldi"), desc="Launch Vivaldi"),
+    EzKey("A-z",lazy.spawn("vivaldi"), lazy.group['2'].toscreen(), desc="Launch Vivaldi and go to group 2."),
     EzKey("A-c",lazy.spawn("gnome-calculator"), desc="Launches Calculator"),
     EzKey("A-l",lazy.function(screenLock),desc="Lock Screen"),
     Key([],'XF86AudioLowerVolume', lazy.function(lowerVolume), desc="Lowers PulseAudio Volume"),
@@ -152,21 +152,44 @@ keys = [
     #Key(['mod1'], "m", lazy.function(minimize)), 
     ]
 
-groups = [Group(i) for i in "123456789"]
+#groups = [Group(i) for i in "123456789"]
+#
+#for i in groups:
+#    keys.extend([
+#        # mod1 + letter of group = switch to group
+#        Key([mod], i.name, lazy.group[i.name].toscreen(),
+#            desc="Switch to group {}".format(i.name)),
+#
+#        # mod1 + shift + letter of group = switch to & move focused window to group
+#        Key([mod, "shift"], i.name, lazy.window.togroup(i.name, switch_group=True),
+#            desc="Switch to & move focused window to group {}".format(i.name)),
+#        # Or, use below if you prefer not to switch to that group.
+#        # # mod1 + shift + letter of group = move focused window to group
+#        # Key([mod, "shift"], i.name, lazy.window.togroup(i.name),
+#        #     desc="move focused window to group {}".format(i.name)),
+#        ])
+groups = [
+    Group('1', matches=[Match(wm_class=['kitty'])], position=1),
+    Group('2', matches=[Match(wm_class=['Vivaldi-stable'])], position=2),
+    Group('3', position=3),
+    Group('4', position=4),
+    Group('5', position=5),
+    Group('6', position=6),
+    Group('7', position=7),
+    Group('8', position=8),
+    Group('9', spawn=['kitty -e ranger',
+        #lazy.window.togroup('9').when(focused=Match(wm_class='kitty'))
+        ], position=9),
+    ]
 
 for i in groups:
     keys.extend([
         # mod1 + letter of group = switch to group
         Key([mod], i.name, lazy.group[i.name].toscreen(),
             desc="Switch to group {}".format(i.name)),
-
         # mod1 + shift + letter of group = switch to & move focused window to group
         Key([mod, "shift"], i.name, lazy.window.togroup(i.name, switch_group=True),
             desc="Switch to & move focused window to group {}".format(i.name)),
-        # Or, use below if you prefer not to switch to that group.
-        # # mod1 + shift + letter of group = move focused window to group
-        # Key([mod, "shift"], i.name, lazy.window.togroup(i.name),
-        #     desc="move focused window to group {}".format(i.name)),
         ])
 
 layouts = [
