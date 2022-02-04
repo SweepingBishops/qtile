@@ -150,6 +150,7 @@ keys = [
     Key([mod],"w",lazy.function(rofi), desc='Opens rofi run menu'),
     #Key(['mod1', "shift"], "m", lazy.function(unminimize), desc="unminimize window"), 
     #Key(['mod1'], "m", lazy.function(minimize)), 
+    Key(['control'], "space", lazy.widget["keyboardlayout"].next_keyboard(), desc="Next keyboard layout."),
     ]
 
 #groups = [Group(i) for i in "123456789"]
@@ -169,7 +170,7 @@ keys = [
 #        #     desc="move focused window to group {}".format(i.name)),
 #        ])
 groups = [
-    Group('1', matches=[Match(wm_class=['kitty'])], position=1),
+    Group('1', position=1),
     Group('2', matches=[Match(wm_class=['Vivaldi-stable'])], position=2),
     Group('3', position=3),
     Group('4', position=4),
@@ -236,16 +237,25 @@ screens = [
             #widget.TextBox("default config", name="default"),
             #widget.TextBox("Press &lt;M-r&gt; to spawn", foreground="#d75f5f"),
             #widget.Wlan(),
-            widget.Sep(),
-            widget.Systray(),
+            #widget.Sep(),
+            widget.WidgetBox(widgets=[
+                widget.Systray(),
+            ],
+            close_button_location='right',
+            text_closed='',
+            text_open='',
+            ),
             widget.Sep(),
             widget.PulseVolume(fmt='Vol:{}'),
             #widget.Backlight(),
             widget.Sep(),
-            widget.Battery(format='{char}{percent:2.2%}',notify_below=10),
+            #widget.KeyboardKbdd(),
+            widget.KeyboardLayout(),
+            widget.Sep(),
+            widget.Battery(format='{char}{percent:2.2%}',notify_below=10,charge_char='', discharge_char='', foreground='ffffff'),
             widget.Sep(),
             #widget.Net(),
-            #widget.Bluetooth(),
+            #widget.Bluetooth(max_chars=5,hci='/org/bluez/hci0/dev_41_42_21_10_F2_AA'),
             #widget.TextBox(text='reload config',mouse_callbacks={'Button1': lambda:qtile.lazy.reload_config()}),
             #widget.Sep(),
             #widget.QuickExit(default_text= '[Logout]'),
