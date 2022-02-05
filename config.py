@@ -2,7 +2,7 @@
 from typing import List  # noqa: F401
 
 from libqtile import bar, layout, widget, hook, qtile, extension
-from libqtile.config import Click, Drag, Group, Key, Match, Screen, EzKey
+from libqtile.config import Click, Drag, Group, Key, Match, Screen, EzKey, ScratchPad, DropDown
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 import os, subprocess # for the autostart
@@ -146,6 +146,12 @@ for i in groups:
         Key([mod, "shift"], i.name, lazy.window.togroup(i.name, switch_group=True),
             desc="Switch to & move focused window to group {}".format(i.name)),
         ])
+
+groups.append(ScratchPad('scratchpad', [DropDown('calculator', 'gnome-calculator'),
+    DropDown('terminal', 'kitty', opacity=0.95)]))
+
+keys.append(Key([mod], 'c', lazy.group['scratchpad'].dropdown_toggle('calculator')))
+keys.append(Key([mod], 'v', lazy.group['scratchpad'].dropdown_toggle('terminal')))
 
 ###Layouts###
 layouts = [
