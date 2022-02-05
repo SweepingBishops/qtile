@@ -35,8 +35,8 @@ def brightUp(qtile):
 def screenshot(qtile):
     os.system('flameshot full -p /home/roshan/Pictures/Screenshots/')
 
-def dmenu(qtile):
-    os.system('dmenu_run')
+def rofi(qtile):
+    os.system('rofi -show drun')
 
 #def minimize(qtile):
 #   subprocess.call(['/home/roshan/.config/qtile/scripts/minimize.sh'])
@@ -119,7 +119,7 @@ keys = [
     Key([],'XF86MonBrightnessDown', lazy.function(brightDown), desc="Decreases Monitor Brightness"),
     Key([],'XF86MonBrightnessUp', lazy.function(brightUp), desc="Increases Monitor Brightness"),
     Key([],'Print', lazy.function(screenshot), desc="Takes a screenshot and saves it to ~/Pictures/Screenshots"),
-    Key([mod],"w",lazy.function(dmenu), desc='Opens dmenu'),
+    Key([mod],"w",lazy.function(rofi), desc='Opens rofi'),
     #Key(['mod1', "shift"], "m", lazy.function(unminimize), desc="unminimize window"), 
     #Key(['mod1'], "m", lazy.function(minimize)), 
     ]
