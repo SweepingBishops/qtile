@@ -165,7 +165,7 @@ extension_defaults = widget_defaults.copy()
 screens = [
 	Screen(
         top=bar.Bar(
-            [widget.GroupBox(),
+            [widget.GroupBox(fontsize=18),
                 widget.Spacer(400),
                 widget.Clock(format='%d/%m %a %I:%M %p', mouse_callbacks={'Button1':partial(os.system,'zenity --calendar &')}),
                 widget.Spacer(),
