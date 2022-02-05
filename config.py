@@ -1,39 +1,13 @@
-# Copyright (c) 2010 Aldo Cortesi
-# Copyright (c) 2010, 2014 dequis
-# Copyright (c) 2012 Randall Ma
-# Copyright (c) 2012-2014 Tycho Andersen
-# Copyright (c) 2012 Craig Barnes
-# Copyright (c) 2013 horsik
-# Copyright (c) 2013 Tao Sauvage
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-# SOFTWARE.
-
+###Imports###
 from typing import List  # noqa: F401
 
 from libqtile import bar, layout, widget, hook, qtile, extension
 from libqtile.config import Click, Drag, Group, Key, Match, Screen, EzKey
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
-import os, subprocess #for the autostart
+import os, subprocess # for the autostart
 from functools import partial
 from scripts.floating_window_snapping import move_snap_window
-#import dbus_next #for bluetooth
 
 mod = "mod4"
 #terminal = guess_terminal()
@@ -59,11 +33,10 @@ def brightUp(qtile):
     subprocess.call(['/home/roshan/.config/qtile/scripts/brightUp.sh'])
 
 def screenshot(qtile):
-    #subprocess.call(['/home/roshan/.config/qtile/scripts/screenshot_full.sh'])
     os.system('flameshot full -p /home/roshan/Pictures/Screenshots/')
 
-def rofi(qtile):
-    os.system('rofi -show run')
+def dmenu(qtile):
+    os.system('dmenu_run')
 
 #def minimize(qtile):
 #   subprocess.call(['/home/roshan/.config/qtile/scripts/minimize.sh'])
@@ -73,7 +46,7 @@ def rofi(qtile):
 ####################################
 
 
-
+###Key Bindings###
 keys = [
     # A list of available commands that can be bound to keys can be found
     # at https://docs.qtile.org/en/latest/manual/config/lazy.html
@@ -91,7 +64,6 @@ keys = [
         desc="Move window focus to other window"),
 
     # Move windows between left/right columns or move up/down in current stack.
-    # Moving out of range in Columns layout will create new column.
     EzKey("M-S-j", lazy.layout.shuffle_left()),
     Key([mod,"shift"],"Left", lazy.layout.shuffle_left(),
         desc="Move window to the left"),
@@ -147,27 +119,12 @@ keys = [
     Key([],'XF86MonBrightnessDown', lazy.function(brightDown), desc="Decreases Monitor Brightness"),
     Key([],'XF86MonBrightnessUp', lazy.function(brightUp), desc="Increases Monitor Brightness"),
     Key([],'Print', lazy.function(screenshot), desc="Takes a screenshot and saves it to ~/Pictures/Screenshots"),
-    Key([mod],"w",lazy.function(rofi), desc='Opens rofi run menu'),
+    Key([mod],"w",lazy.function(dmenu), desc='Opens dmenu'),
     #Key(['mod1', "shift"], "m", lazy.function(unminimize), desc="unminimize window"), 
     #Key(['mod1'], "m", lazy.function(minimize)), 
     ]
 
-#groups = [Group(i) for i in "123456789"]
-#
-#for i in groups:
-#    keys.extend([
-#        # mod1 + letter of group = switch to group
-#        Key([mod], i.name, lazy.group[i.name].toscreen(),
-#            desc="Switch to group {}".format(i.name)),
-#
-#        # mod1 + shift + letter of group = switch to & move focused window to group
-#        Key([mod, "shift"], i.name, lazy.window.togroup(i.name, switch_group=True),
-#            desc="Switch to & move focused window to group {}".format(i.name)),
-#        # Or, use below if you prefer not to switch to that group.
-#        # # mod1 + shift + letter of group = move focused window to group
-#        # Key([mod, "shift"], i.name, lazy.window.togroup(i.name),
-#        #     desc="move focused window to group {}".format(i.name)),
-#        ])
+###Groups###
 groups = [
     Group('1', position=1),
     Group('2', matches=[Match(wm_class=['Vivaldi-stable'])], position=2),
@@ -177,9 +134,7 @@ groups = [
     Group('6', position=6),
     Group('7', position=7),
     Group('8', position=8),
-    Group('9', spawn=['kitty -e ranger',
-        #lazy.window.togroup('9').when(focused=Match(wm_class='kitty'))
-        ], position=9),
+    Group('9', spawn=['kitty -e ranger',], position=9),
     ]
 
 for i in groups:
@@ -192,24 +147,14 @@ for i in groups:
             desc="Switch to & move focused window to group {}".format(i.name)),
         ])
 
+###Layouts###
 layouts = [
     layout.Columns(border_focus_stack=['#d75f5f', '#8f3d3d'], border_width=2, margin=1, margin_on_single=0),
     layout.Max(),
     #layout.MonadWide(border_focus='#881111',single_border_width=0),
-    #layout.Slice(width=683,fallback=layout.MonadWide()),
-    #layout.Tile(),
-    # Try more layouts by unleashing below layouts.
-    #layout.TreeTab(),
-    #layout.Stack(num_stacks=2),
-    #layout.Bsp(),
-    #layout.Matrix(),
-    #layout.MonadTall(),
-    #layout.RatioTile(),
-    #layout.VerticalTile(),
-    #layout.Zoomy(),
-    #layout.Floating()
     ]
 
+###Widgets###
 widget_defaults = dict(
     font='sans',
     fontsize=12,
@@ -219,27 +164,22 @@ extension_defaults = widget_defaults.copy()
 
 screens = [
     Screen(
-        top=bar.Bar(
-            [#widget.CurrentLayout(),
+        top=bar.Bar([
             widget.GroupBox(),
             widget.Prompt(),
             widget.Notify(),
-            widget.Spacer(mouse_callbacks={'Button1':partial(os.system,'rofi -show run &')}),
-            widget.Clock(format='%d/%m %a %I:%M %p', mouse_callbacks={'Button1':partial(os.system,'zenity --calendar &')}),
             widget.Spacer(mouse_callbacks={'Button1':partial(os.system,'flameshot gui -p /home/roshan/Pictures/Screenshots/')}),
+            widget.Clock(format='%d/%m %a %I:%M %p', mouse_callbacks={'Button1':partial(os.system,'zenity --calendar &')}),
+            widget.Spacer(mouse_callbacks={}),
             widget.Chord(
                 chords_colors={
                     'launch': ("#ff0000", "#ffffff"),
                     },
                     name_transform=lambda name: name.upper(),
                     ),
-            #widget.TextBox("default config", name="default"),
-            #widget.TextBox("Press &lt;M-r&gt; to spawn", foreground="#d75f5f"),
-            #widget.Wlan(),
-            #widget.Sep(),
             widget.WidgetBox(widgets=[
                 widget.Systray(),
-            ],
+                ],
             close_button_location='right',
             text_closed='',
             text_open='',
@@ -255,7 +195,6 @@ screens = [
             widget.Battery(format='{char}{percent:2.2%}',notify_below=10,charge_char='', discharge_char='', foreground='ffffff'),
             widget.Sep(),
             #widget.Net(),
-            #widget.Bluetooth(max_chars=5,hci='/org/bluez/hci0/dev_41_42_21_10_F2_AA'),
             #widget.TextBox(text='reload config',mouse_callbacks={'Button1': lambda:qtile.lazy.reload_config()}),
             #widget.Sep(),
             #widget.QuickExit(default_text= '[Logout]'),
