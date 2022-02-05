@@ -110,7 +110,7 @@ keys = [
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
     Key([mod], "r", lazy.spawncmd(),
         desc="Spawn a command using a prompt widget"),
-    EzKey("A-z",lazy.spawn("vivaldi"), lazy.group['2'].toscreen(), desc="Launch Vivaldi and go to group 2."),
+    EzKey("A-z",lazy.spawn("vivaldi"),desc="Launch Vivaldi."),
     EzKey("A-c",lazy.spawn("gnome-calculator"), desc="Launches Calculator"),
     EzKey("A-l",lazy.function(screenLock),desc="Lock Screen"),
     Key([],'XF86AudioLowerVolume', lazy.function(lowerVolume), desc="Lowers PulseAudio Volume"),
@@ -126,15 +126,15 @@ keys = [
 
 ###Groups###
 groups = [
-    Group('1', position=1),
-    Group('2', matches=[Match(wm_class=['Vivaldi-stable'])], position=2),
-    Group('3', position=3),
-    Group('4', position=4),
+    Group('1', position=1, label='', matches=[Match(wm_class=['Vivaldi-stable'])]),
+    Group('2', position=2, label=''),
+    Group('3', position=3, label='', matches=[Match(wm_class=['Write'])]),
+    Group('4', position=4, label='', matches=[Match(wm_class=['Evince'])]),
     Group('5', position=5),
     Group('6', position=6),
     Group('7', position=7),
-    Group('8', position=8),
-    Group('9', spawn=['kitty -e ranger',], position=9),
+    Group('8', position=8, label='♫', matches=[Match(wm_class=['Spotify'])]),
+    Group('9', position=9, label='', spawn=['kitty -e ranger']),
     ]
 
 for i in groups:
@@ -165,7 +165,7 @@ extension_defaults = widget_defaults.copy()
 screens = [
     Screen(
         top=bar.Bar([
-            widget.GroupBox(),
+            widget.GroupBox(fontsize=18),
             widget.Prompt(),
             widget.Notify(),
             widget.Spacer(mouse_callbacks={'Button1':partial(os.system,'flameshot gui -p /home/roshan/Pictures/Screenshots/')}),
@@ -252,3 +252,8 @@ wmname = "LG3D"
 def autostart():
     path = '/home/roshan/.config/qtile/scripts/autostart.sh'
     subprocess.call([path])
+
+@hook.subscribe.client_managed
+def move_to_group(client):
+    if 'kitty' not in client.window.get_wm_class():
+        client.group.cmd_toscreen()
