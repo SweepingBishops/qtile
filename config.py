@@ -150,7 +150,6 @@ keys = [
     Key([mod],"w",lazy.function(rofi), desc='Opens rofi run menu'),
     #Key(['mod1', "shift"], "m", lazy.function(unminimize), desc="unminimize window"), 
     #Key(['mod1'], "m", lazy.function(minimize)), 
-    Key(['control'], "space", lazy.widget["keyboardlayout"].next_keyboard(), desc="Next keyboard layout."),
     ]
 
 #groups = [Group(i) for i in "123456789"]
@@ -244,13 +243,14 @@ screens = [
             close_button_location='right',
             text_closed='',
             text_open='',
+            fontsize=16,
             ),
             widget.Sep(),
             widget.PulseVolume(fmt='Vol:{}'),
             #widget.Backlight(),
-            widget.Sep(),
+            #widget.Sep(),
             #widget.KeyboardKbdd(),
-            widget.KeyboardLayout(),
+            #widget.KeyboardLayout(),
             widget.Sep(),
             widget.Battery(format='{char}{percent:2.2%}',notify_below=10,charge_char='', discharge_char='', foreground='ffffff'),
             widget.Sep(),
