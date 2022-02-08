@@ -152,6 +152,7 @@ groups.append(ScratchPad('scratchpad', [DropDown('calculator', 'gnome-calculator
 
 keys.append(Key([mod], 'c', lazy.group['scratchpad'].dropdown_toggle('calculator')))
 keys.append(Key([mod], 'v', lazy.group['scratchpad'].dropdown_toggle('terminal')))
+
 ###Layouts###
 layouts = [
     layout.Columns(border_focus_stack=['#d75f5f', '#8f3d3d'], border_width=2, margin=1, margin_on_single=0),
