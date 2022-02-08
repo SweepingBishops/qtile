@@ -173,7 +173,6 @@ screens = [
         top=bar.Bar([
             widget.GroupBox(fontsize=18),
             widget.Prompt(),
-            widget.Notify(),
             widget.Spacer(mouse_callbacks={'Button1':partial(os.system,'flameshot gui -p /home/roshan/Pictures/Screenshots/')}),
             widget.Clock(format='%d/%m %a %I:%M %p', mouse_callbacks={'Button1':partial(os.system,'zenity --calendar &')}),
             widget.Spacer(mouse_callbacks={}),
