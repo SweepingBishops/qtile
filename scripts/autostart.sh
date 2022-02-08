@@ -5,8 +5,8 @@ compton &
 dunst &
 gnome-screensaver &
 #pulseeffects --gapplication-service &
-xinput set-prop 'Elan Touchpad' 'libinput Tapping Enabled' 1 &
-xinput set-prop 'Elan Touchpad' 'libinput Natural Scrolling Enabled' 1 &
-setxkbmap in,gr -variant eng,simple -option grp:shifts_toggle &
-numlockx on &
+#sudo chmod 666 /sys/class/backlight/intel_backlight/brightness
+xinput set-prop 'Elan Touchpad' 'libinput Tapping Enabled' 1
+xinput set-prop 'Elan Touchpad' 'libinput Natural Scrolling Enabled' 1
+numlockx on
 /home/roshan/.myscripts/automatic_royalroad_update_checker &
