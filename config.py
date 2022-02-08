@@ -194,7 +194,7 @@ screens = [
             widget.PulseVolume(fmt='Vol:{}'),
             #widget.Backlight(),
             widget.Sep(),
-            widget.Battery(format='{char}{percent:2.2%}',notify_below=10,charge_char='', discharge_char='', foreground='ffffff'),
+            widget.Battery(format='{char}{percent:2.2%}',notify_below=10,charge_char=' ', discharge_char='', foreground='ffffff'),
             widget.Sep(),
             #widget.Net(),
             #widget.TextBox(text='reload config',mouse_callbacks={'Button1': lambda:qtile.lazy.reload_config()}),
