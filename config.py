@@ -133,7 +133,7 @@ groups = [
     Group('5', position=5),
     Group('6', position=6),
     Group('7', position=7),
-    Group('8', position=8, label='♫', matches=[Match(wm_class=['Spotify'])]),
+    Group('8', position=8, label='♫', matches=[Match(wm_class=['Rhythmbox'])]),
     Group('9', position=9, label='', spawn=['kitty -e ranger']),
     ]
 
