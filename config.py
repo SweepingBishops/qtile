@@ -133,7 +133,7 @@ groups = [
     Group('5', position=5),
     Group('6', position=6),
     Group('7', position=7),
-    Group('8', position=8, label='♫', matches=[Match(wm_class=['Spotify'])]),
+    Group('8', position=8, label='♫', matches=[Match(wm_class=['Rhythmbox'])]),
     Group('9', position=9, label='', spawn=['kitty -e ranger']),
     ]
 
@@ -183,7 +183,6 @@ screens = [
         top=bar.Bar([
             widget.GroupBox(fontsize=18),
             widget.Prompt(),
-            widget.Notify(),
             widget.Spacer(mouse_callbacks={'Button1':partial(os.system,'flameshot gui -p /home/roshan/Pictures/Screenshots/')}),
             widget.Clock(format='%d/%m %a %I:%M %p', mouse_callbacks={'Button1':partial(os.system,'zenity --calendar &')}),
             widget.Spacer(mouse_callbacks={}),
