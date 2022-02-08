@@ -2,7 +2,7 @@
 from typing import List  # noqa: F401
 
 from libqtile import bar, layout, widget, hook, qtile, extension
-from libqtile.config import Click, Drag, Group, Key, Match, Screen, EzKey
+from libqtile.config import Click, Drag, Group, Key, Match, Screen, EzKey, ScratchPad, DropDown
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 import os, subprocess # for the autostart
@@ -133,7 +133,7 @@ groups = [
     Group('5', position=5),
     Group('6', position=6),
     Group('7', position=7),
-    Group('8', position=8, label='♫', matches=[Match(wm_class=['Spotify'])]),
+    Group('8', position=8, label='♫', matches=[Match(wm_class=['Rhythmbox'])]),
     Group('9', position=9, label='', spawn=['kitty -e ranger']),
     ]
 
@@ -147,6 +147,11 @@ for i in groups:
             desc="Switch to & move focused window to group {}".format(i.name)),
         ])
 
+groups.append(ScratchPad('scratchpad', [DropDown('calculator', 'gnome-calculator'),
+    DropDown('terminal', 'kitty', opacity=0.95)]))
+
+keys.append(Key([mod], 'c', lazy.group['scratchpad'].dropdown_toggle('calculator')))
+keys.append(Key([mod], 'v', lazy.group['scratchpad'].dropdown_toggle('terminal')))
 ###Layouts###
 layouts = [
     layout.Columns(border_focus_stack=['#d75f5f', '#8f3d3d'], border_width=2, margin=1, margin_on_single=0),
@@ -177,7 +182,6 @@ screens = [
         top=bar.Bar([
             widget.GroupBox(fontsize=18),
             widget.Prompt(),
-            widget.Notify(),
             widget.Spacer(mouse_callbacks={'Button1':partial(os.system,'flameshot gui -p /home/roshan/Pictures/Screenshots/')}),
             widget.Clock(format='%d/%m %a %I:%M %p', mouse_callbacks={'Button1':partial(os.system,'zenity --calendar &')}),
             widget.Spacer(mouse_callbacks={}),
@@ -215,7 +219,7 @@ screens = [
 
 # Drag floating layouts.
 mouse = [
-    Drag([mod], "Button1", lazy.window.set_position_floating(),
+    Drag([mod], "Button1", move_snap_window(snap_dist=40),
          start=lazy.window.get_position()),
     Drag([mod], "Button3", lazy.window.set_size_floating(),
          start=lazy.window.get_size()),
