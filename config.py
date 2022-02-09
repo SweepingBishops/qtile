@@ -259,5 +259,4 @@ def autostart():
 
 @hook.subscribe.client_managed
 def move_to_group(client):
-    if 'kitty' not in client.window.get_wm_class():
-        client.group.cmd_toscreen()
+    client.group.cmd_toscreen()
