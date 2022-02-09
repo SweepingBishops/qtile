@@ -149,7 +149,7 @@ for i in groups:
 
 groups.append(ScratchPad('scratchpad', [DropDown('calculator', 'gnome-calculator'),
     DropDown('terminal', 'kitty', opacity=0.95),
-    DropDown('notepad', '/home/roshan/Downloads/Write/Write', opacity=0.8),]))
+    DropDown('notepad', '/home/roshan/Downloads/Write/Write', opacity=0.8, height=0.5),]))
 
 keys.append(Key([mod], 'c', lazy.group['scratchpad'].dropdown_toggle('calculator')))
 keys.append(Key([mod], 'v', lazy.group['scratchpad'].dropdown_toggle('terminal')))
