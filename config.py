@@ -127,7 +127,7 @@ keys = [
 ###Groups###
 groups = [
     Group('1', position=1, label='', matches=[Match(wm_class=['Vivaldi-stable'])]),
-    Group('2', position=2, label=''),
+    Group('2', position=2, label='', matches=[Match(wm_class=['kitty'])]),
     Group('3', position=3, label='', matches=[Match(wm_class=['Write'])]),
     Group('4', position=4, label='', matches=[Match(wm_class=['Evince'])]),
     Group('5', position=5),
