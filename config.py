@@ -110,7 +110,7 @@ keys = [
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
     Key([mod], "r", lazy.spawncmd(),
         desc="Spawn a command using a prompt widget"),
-    EzKey("A-z",lazy.spawn("vivaldi"),desc="Launch Vivaldi."),
+    EzKey("A-z",lazy.spawn("vivaldi-stable"),desc="Launch Vivaldi."),
     EzKey("A-c",lazy.spawn("gnome-calculator"), desc="Launches Calculator"),
     EzKey("A-l",lazy.function(screenLock),desc="Lock Screen"),
     Key([],'XF86AudioLowerVolume', lazy.function(lowerVolume), desc="Lowers PulseAudio Volume"),
@@ -149,7 +149,7 @@ for i in groups:
 
 groups.append(ScratchPad('scratchpad', [DropDown('calculator', 'gnome-calculator'),
     DropDown('terminal', 'kitty', opacity=0.95),
-    DropDown('notepad', '/home/roshan/Downloads/Write/Write', opacity=0.8, height=0.5),]))
+    DropDown('notepad', '/home/roshan/repos/Write/Write', opacity=0.8, height=0.5),]))
 
 keys.append(Key([mod], 'c', lazy.group['scratchpad'].dropdown_toggle('calculator')))
 keys.append(Key([mod], 'v', lazy.group['scratchpad'].dropdown_toggle('terminal')))
@@ -164,7 +164,7 @@ layouts = [
 
 ###Widgets###
 widget_defaults = dict(
-    font='MesloLGS NF',
+    font='DejaVuSansMono Nerd Font Mono',
     fontsize=12,
     padding=3,
     )

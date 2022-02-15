@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 #xautolock -time 5 -locker 'gnome-screensaver-command -l' &
-variety &
-compton &
+picom &
+nitrogen --restore &
 dunst &
 gnome-screensaver &
 #pulseeffects --gapplication-service &
