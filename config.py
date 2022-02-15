@@ -38,6 +38,14 @@ def screenshot(qtile):
 def rofi(qtile):
     os.system('rofi -show drun')
 
+def notification_history(qtile):
+    os.system('dunstctl history-pop')
+
+def notification_close(qtile):
+    os.system('dunstctl close')
+
+def notification_close_all(qtile):
+    os.system('dunstctl close-all')
 #def minimize(qtile):
 #   subprocess.call(['/home/roshan/.config/qtile/scripts/minimize.sh'])
 #
@@ -122,6 +130,9 @@ keys = [
     Key([mod],"w",lazy.function(rofi), desc='Opens rofi'),
     #Key(['mod1', "shift"], "m", lazy.function(unminimize), desc="unminimize window"), 
     #Key(['mod1'], "m", lazy.function(minimize)), 
+    Key(['control'],'grave', lazy.function(notification_history)),
+    Key(['control'],'space', lazy.function(notification_close)),
+    Key(['control', 'shift'], 'space', lazy.function(notification_close_all)),
     ]
 
 ###Groups###
