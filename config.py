@@ -145,7 +145,7 @@ groups = [
     Group('6', position=6),
     Group('7', position=7),
     Group('8', position=8, label='♫', matches=[Match(wm_class=['Rhythmbox'])]),
-    Group('9', position=9, label='', spawn=['kitty -e ranger']),
+    Group('9', position=9, label='', spawn=["kitty --class 'ranger' -e ranger"]),
     ]
 
 for i in groups:
