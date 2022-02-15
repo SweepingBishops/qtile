@@ -15,7 +15,7 @@ terminal = '/usr/bin/kitty'
 
 ##########my functions#############
 def screenLock(qtile):
-    subprocess.call(['/home/roshan/.config/qtile/scripts/screenLock.sh'])
+    os.system('betterlockscreen --off 1 -l')
 
 def lowerVolume(qtile):
     subprocess.call(['/home/roshan/.config/qtile/scripts/lowerVolume.sh'])
@@ -27,10 +27,10 @@ def muteUnmute(qtile):
     subprocess.call(['/home/roshan/.config/qtile/scripts/muteUnmute.sh'])
 
 def brightDown(qtile):
-    subprocess.call(['/home/roshan/.config/qtile/scripts/brightDown.sh'])
+    os.system("brightnessctl -d 'intel_backlight' set 2%-")
 
 def brightUp(qtile):
-    subprocess.call(['/home/roshan/.config/qtile/scripts/brightUp.sh'])
+    os.system("brightnessctl -d 'intel_backlight' set +2%")
 
 def screenshot(qtile):
     os.system('flameshot full -p /home/roshan/Pictures/Screenshots/')
