@@ -110,7 +110,7 @@ keys = [
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
     Key([mod], "r", lazy.spawncmd(),
         desc="Spawn a command using a prompt widget"),
-    EzKey("A-z",lazy.spawn("vivaldi"),desc="Launch Vivaldi."),
+    EzKey("A-z",lazy.spawn("vivaldi-stable"),desc="Launch Vivaldi."),
     EzKey("A-c",lazy.spawn("gnome-calculator"), desc="Launches Calculator"),
     EzKey("A-l",lazy.function(screenLock),desc="Lock Screen"),
     Key([],'XF86AudioLowerVolume', lazy.function(lowerVolume), desc="Lowers PulseAudio Volume"),
@@ -127,7 +127,7 @@ keys = [
 ###Groups###
 groups = [
     Group('1', position=1, label='', matches=[Match(wm_class=['Vivaldi-stable'])]),
-    Group('2', position=2, label=''),
+    Group('2', position=2, label='', matches=[Match(wm_class=['kitty'])]),
     Group('3', position=3, label='', matches=[Match(wm_class=['Write'])]),
     Group('4', position=4, label='', matches=[Match(wm_class=['Evince'])]),
     Group('5', position=5),
@@ -148,10 +148,12 @@ for i in groups:
         ])
 
 groups.append(ScratchPad('scratchpad', [DropDown('calculator', 'gnome-calculator'),
-    DropDown('terminal', 'kitty', opacity=0.95)]))
+    DropDown('terminal', 'kitty', opacity=0.95),
+    DropDown('notepad', '/home/roshan/repos/Write/Write', opacity=0.8, height=0.5),]))
 
 keys.append(Key([mod], 'c', lazy.group['scratchpad'].dropdown_toggle('calculator')))
 keys.append(Key([mod], 'v', lazy.group['scratchpad'].dropdown_toggle('terminal')))
+keys.append(Key([mod], 'b', lazy.group['scratchpad'].dropdown_toggle('notepad')))
 
 ###Layouts###
 layouts = [
@@ -162,7 +164,7 @@ layouts = [
 
 ###Widgets###
 widget_defaults = dict(
-    font='MesloLGS NF',
+    font='DejaVuSansMono Nerd Font Mono',
     fontsize=12,
     padding=3,
     )
@@ -267,5 +269,4 @@ def autostart():
 
 @hook.subscribe.client_managed
 def move_to_group(client):
-    if 'kitty' not in client.window.get_wm_class():
-        client.group.cmd_toscreen()
+    client.group.cmd_toscreen()
