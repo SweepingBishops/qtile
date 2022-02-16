@@ -140,7 +140,7 @@ groups = [
     Group('1', position=1, label='', matches=[Match(wm_class=['Vivaldi-stable'])]),
     Group('2', position=2, label='', matches=[Match(wm_class=['kitty'])]),
     Group('3', position=3, label='', matches=[Match(wm_class=['Write'])]),
-    Group('4', position=4, label='', matches=[Match(wm_class=['Evince'])]),
+    Group('4', position=4, label='', matches=[Match(wm_class=['Evince']), Match(wm_class=['llpp'])]),
     Group('5', position=5),
     Group('6', position=6),
     Group('7', position=7),
