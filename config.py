@@ -210,7 +210,6 @@ screens = [
             widget.Battery(format='{char}{percent:2.2%}',notify_below=10,charge_char=' ', discharge_char='', foreground='ffffff'),
             widget.Sep(),
             #widget.Net(),
-            #widget.TextBox(text='reload config',mouse_callbacks={'Button1': lambda:qtile.lazy.reload_config()}),
             #widget.Sep(),
             #widget.QuickExit(default_text= '[Logout]'),
             ],
