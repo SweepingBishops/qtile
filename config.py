@@ -15,7 +15,7 @@ terminal = '/usr/bin/kitty'
 
 ##########my functions#############
 def screenLock(qtile):
-    subprocess.call(['/home/roshan/.config/qtile/scripts/screenLock.sh'])
+    os.system('betterlockscreen --off 15 -l')
 
 def lowerVolume(qtile):
     subprocess.call(['/home/roshan/.config/qtile/scripts/lowerVolume.sh'])
@@ -27,10 +27,10 @@ def muteUnmute(qtile):
     subprocess.call(['/home/roshan/.config/qtile/scripts/muteUnmute.sh'])
 
 def brightDown(qtile):
-    subprocess.call(['/home/roshan/.config/qtile/scripts/brightDown.sh'])
+    os.system("brightnessctl -d 'intel_backlight' set 2%-")
 
 def brightUp(qtile):
-    subprocess.call(['/home/roshan/.config/qtile/scripts/brightUp.sh'])
+    os.system("brightnessctl -d 'intel_backlight' set +2%")
 
 def screenshot(qtile):
     os.system('flameshot full -p /home/roshan/Pictures/Screenshots/')
@@ -38,6 +38,14 @@ def screenshot(qtile):
 def rofi(qtile):
     os.system('rofi -show drun')
 
+def notification_history(qtile):
+    os.system('dunstctl history-pop')
+
+def notification_close(qtile):
+    os.system('dunstctl close')
+
+def notification_close_all(qtile):
+    os.system('dunstctl close-all')
 #def minimize(qtile):
 #   subprocess.call(['/home/roshan/.config/qtile/scripts/minimize.sh'])
 #
@@ -122,6 +130,9 @@ keys = [
     Key([mod],"w",lazy.function(rofi), desc='Opens rofi'),
     #Key(['mod1', "shift"], "m", lazy.function(unminimize), desc="unminimize window"), 
     #Key(['mod1'], "m", lazy.function(minimize)), 
+    Key(['control'],'grave', lazy.function(notification_history)),
+    Key(['control'],'space', lazy.function(notification_close)),
+    Key(['control', 'shift'], 'space', lazy.function(notification_close_all)),
     ]
 
 ###Groups###
@@ -129,12 +140,12 @@ groups = [
     Group('1', position=1, label='', matches=[Match(wm_class=['Vivaldi-stable'])]),
     Group('2', position=2, label='', matches=[Match(wm_class=['kitty'])]),
     Group('3', position=3, label='', matches=[Match(wm_class=['Write'])]),
-    Group('4', position=4, label='', matches=[Match(wm_class=['Evince'])]),
+    Group('4', position=4, label='', matches=[Match(wm_class=['Evince']), Match(wm_class=['llpp'])]),
     Group('5', position=5),
     Group('6', position=6),
     Group('7', position=7),
     Group('8', position=8, label='♫', matches=[Match(wm_class=['Rhythmbox'])]),
-    Group('9', position=9, label='', spawn=['kitty -e ranger']),
+    Group('9', position=9, label='', spawn=["kitty --class 'ranger' -e ranger"]),
     ]
 
 for i in groups:
