@@ -5,6 +5,7 @@ from libqtile import bar, layout, widget, hook, qtile, extension
 from libqtile.config import Click, Drag, Group, Key, Match, Screen, EzKey, ScratchPad, DropDown
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
+from libqtile.log_utils import logger
 import os, subprocess # for the autostart
 from functools import partial
 from scripts.floating_window_snapping import move_snap_window
@@ -269,4 +270,5 @@ def autostart():
 
 @hook.subscribe.client_managed
 def move_to_group(client):
-    client.group.cmd_toscreen()
+    if client.window.get_wm_class()[0] != 'ranger':
+        client.group.cmd_toscreen()
