@@ -5,6 +5,7 @@ from libqtile import bar, layout, widget, hook, qtile, extension
 from libqtile.config import Click, Drag, Group, Key, Match, Screen, EzKey, ScratchPad, DropDown
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
+from libqtile.log_utils import logger
 import os, subprocess # for the autostart
 from functools import partial
 from scripts.floating_window_snapping import move_snap_window
@@ -194,7 +195,7 @@ screens = [
         ),
     Screen(
         top=bar.Bar([
-            widget.GroupBox(fontsize=18),
+            widget.GroupBox(fontsize=18, highlight_method='line'),
             widget.Prompt(),
             widget.Spacer(mouse_callbacks={'Button1':partial(os.system,'flameshot gui -p /home/roshan/Pictures/Screenshots/')}),
             widget.Clock(format='%d/%m %a %I:%M %p', mouse_callbacks={'Button1':partial(os.system,'zenity --calendar &')}),
@@ -220,7 +221,6 @@ screens = [
             widget.Battery(format='{char}{percent:2.2%}',notify_below=10,charge_char=' ', discharge_char='', foreground='ffffff'),
             widget.Sep(),
             #widget.Net(),
-            #widget.TextBox(text='reload config',mouse_callbacks={'Button1': lambda:qtile.lazy.reload_config()}),
             #widget.Sep(),
             #widget.QuickExit(default_text= '[Logout]'),
             ],
@@ -280,4 +280,5 @@ def autostart():
 
 @hook.subscribe.client_managed
 def move_to_group(client):
-    client.group.cmd_toscreen()
+    if client.window.get_wm_class()[0] != 'ranger':
+        client.group.cmd_toscreen()
