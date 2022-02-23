@@ -16,7 +16,7 @@ terminal = '/usr/bin/kitty'
 
 ##########my functions#############
 def screenLock(qtile):
-    os.system('betterlockscreen --off 15 -l')
+    os.system('betterlockscreen --off 15 -l dim')
 
 def lowerVolume(qtile):
     subprocess.call(['/home/roshan/.config/qtile/scripts/lowerVolume.sh'])
