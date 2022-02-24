@@ -14,6 +14,6 @@ xidlehook \
     --not-when-fullscreen \
     --not-when-audio \
     --timer 180 \
-        "betterlockscreen -l --off 15" '' \
+        "betterlockscreen -l dim --off 15" '' \
     --timer 1800 \
         "systemctl suspend" '' &

@@ -16,7 +16,7 @@ terminal = '/usr/bin/kitty'
 
 ##########my functions#############
 def screenLock(qtile):
-    os.system('betterlockscreen --off 15 -l')
+    os.system('betterlockscreen --off 15 -l dim')
 
 def lowerVolume(qtile):
     subprocess.call(['/home/roshan/.config/qtile/scripts/lowerVolume.sh'])
@@ -272,7 +272,7 @@ auto_minimize = True
 #
 # We choose LG3D to maximize irony: it is a 3D non-reparenting WM written in
 # java that happens to be on java's whitelist.
-wmname = "LG3D"
+wmname = "qtile"
 
 @hook.subscribe.startup_once
 def autostart():
