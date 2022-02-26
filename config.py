@@ -47,6 +47,9 @@ def notification_close(qtile):
 
 def notification_close_all(qtile):
     os.system('dunstctl close-all')
+
+def notification_context(qtile):
+    os.system('dunstctl context')
 #def minimize(qtile):
 #   subprocess.call(['/home/roshan/.config/qtile/scripts/minimize.sh'])
 #
@@ -134,6 +137,7 @@ keys = [
     Key(['control'],'grave', lazy.function(notification_history)),
     Key(['control'],'space', lazy.function(notification_close)),
     Key(['control', 'shift'], 'space', lazy.function(notification_close_all)),
+    Key(['control', 'shift'], 'grave', lazy.function(notification_context)),
     ]
 
 ###Groups###
