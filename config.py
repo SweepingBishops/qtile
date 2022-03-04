@@ -187,6 +187,17 @@ widget_defaults = dict(
 extension_defaults = widget_defaults.copy()
 
 screens = [
+	Screen(
+        top=bar.Bar(
+            [widget.GroupBox(fontsize=18),
+                widget.Spacer(),
+                widget.Clock(format='%d/%m %a %I:%M %p', mouse_callbacks={'Button1':partial(os.system,'zenity --calendar &')}),
+                widget.Spacer(),
+                widget.TextBox(text=' '),   # If this is not there the clock is not centralised.
+                ],
+            24,
+            ),
+        ),
     Screen(
         top=bar.Bar([
             widget.GroupBox(fontsize=18, highlight_method='line'),
