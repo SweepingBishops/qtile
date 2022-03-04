@@ -201,6 +201,7 @@ screens = [
                     name_transform=lambda name: name.upper(),
                     ),
             widget.WidgetBox(widgets=[
+                widget.NetGraph(),
                 widget.Systray(),
                 ],
             close_button_location='right',
