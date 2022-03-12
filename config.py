@@ -151,6 +151,7 @@ groups = [
     Group('7', position=7),
     Group('8', position=8, label='♫', matches=[Match(wm_class=['Rhythmbox'])]),
     Group('9', position=9, label='', spawn=["kitty --class 'ranger' -e ranger"]),
+    Group('p'),
     ]
 
 for i in groups:
@@ -189,7 +190,7 @@ extension_defaults = widget_defaults.copy()
 screens = [
     Screen(
         top=bar.Bar([
-            widget.GroupBox(fontsize=18, highlight_method='line'),
+            widget.GroupBox(fontsize=18, highlight_method='line', visible_groups=['1','2','3','4','5','6','7','8','9']),
             widget.Prompt(),
             widget.Spacer(mouse_callbacks={'Button1':partial(os.system,'flameshot gui -p /home/roshan/Pictures/Screenshots/')}),
             widget.Clock(format='%d/%m %a %I:%M %p', mouse_callbacks={'Button1':partial(os.system,'zenity --calendar &')}),
