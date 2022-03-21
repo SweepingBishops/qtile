@@ -204,6 +204,7 @@ screens = [
             widget.WidgetBox(widgets=[
                 widget.NetGraph(),
                 widget.Systray(),
+                widget.Cmus(),
                 ],
             close_button_location='right',
             text_closed='',
