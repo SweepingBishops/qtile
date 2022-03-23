@@ -138,6 +138,9 @@ keys = [
     Key(['control'],'space', lazy.function(notification_close)),
     Key(['control', 'shift'], 'space', lazy.function(notification_close_all)),
     Key(['control', 'shift'], 'grave', lazy.function(notification_context)),
+    Key([],'XF86AudioPlay', lazy.function(lambda qtile: os.system('cmus-remote --pause'))),
+    Key([],'XF86AudioNext', lazy.function(lambda qtile: os.system('cmus-remote --next'))),
+    Key([],'XF86AudioPrev', lazy.function(lambda qtile: os.system('cmus-remote --prev'))),
     ]
 
 ###Groups###
