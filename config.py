@@ -197,7 +197,7 @@ screens = [
             widget.Prompt(),
             widget.Spacer(mouse_callbacks={'Button1':partial(os.system,'flameshot gui -p /home/roshan/Pictures/Screenshots/')}),
             widget.Clock(format='%d/%m %a %I:%M %p', mouse_callbacks={'Button1':partial(os.system,'zenity --calendar &')}),
-            widget.Spacer(mouse_callbacks={}),
+            widget.Spacer(mouse_callbacks={'Button1':lazy.group['scratchpad'].dropdown_toggle('notepad')}),
             widget.Chord(
                 chords_colors={
                     'launch': ("#ff0000", "#ffffff"),
