@@ -123,7 +123,7 @@ keys = [
     Key([mod], "r", lazy.spawncmd(),
         desc="Spawn a command using a prompt widget"),
     EzKey("A-z",lazy.spawn("vivaldi-stable"),desc="Launch Vivaldi."),
-    EzKey("A-c",lazy.spawn("gnome-calculator"), desc="Launches Calculator"),
+    EzKey("A-c",lazy.spawn("galculator"), desc="Launches Calculator"),
     EzKey("A-l",lazy.function(screenLock),desc="Lock Screen"),
     Key([],'XF86AudioLowerVolume', lazy.function(lowerVolume), desc="Lowers PulseAudio Volume"),
     Key([],'XF86AudioRaiseVolume', lazy.function(raiseVolume), desc="Raises PulseAudio Volume"),
@@ -252,6 +252,7 @@ floating_layout = layout.Floating(float_rules=[
     Match(wm_class='ssh-askpass'),  # ssh-askpass
     Match(title='branchdialog'),  # gitk
     Match(title='pinentry'),  # GPG key password entry
+    Match(wm_class='galculator'),   # Calculator
     ])
 auto_fullscreen = True
 focus_on_window_activation = "smart"
