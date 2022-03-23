@@ -181,8 +181,8 @@ layouts = [
 
 ###Widgets###
 widget_defaults = dict(
-    font='DejaVuSansMono Nerd Font Mono',
-    fontsize=12,
+    font='DejaVu Sans Nerd Font',
+    fontsize=13,
     padding=3,
     )
 extension_defaults = widget_defaults.copy()
@@ -204,13 +204,14 @@ screens = [
             widget.WidgetBox(widgets=[
                 widget.NetGraph(),
                 widget.Systray(),
-                widget.Cmus(),
                 ],
             close_button_location='right',
             text_closed='',
             text_open='',
             fontsize=16,
             ),
+            widget.Sep(),
+            widget.Cmus(),
             widget.Sep(),
             widget.PulseVolume(fmt='Vol:{}'),
             #widget.Backlight(),
