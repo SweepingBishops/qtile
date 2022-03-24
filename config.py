@@ -9,6 +9,7 @@ from libqtile.log_utils import logger
 import os, subprocess # for the autostart
 from functools import partial
 from scripts.floating_window_snapping import move_snap_window
+from myWidget.cmus import Cmus as myCmus
 
 mod = "mod4"
 #terminal = guess_terminal()
@@ -214,7 +215,7 @@ screens = [
             fontsize=16,
             ),
             widget.Sep(),
-            widget.Cmus(),
+            myCmus(),
             widget.Sep(),
             widget.PulseVolume(fmt='Vol:{}'),
             #widget.Backlight(),
