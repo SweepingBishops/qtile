@@ -9,7 +9,6 @@ from libqtile.log_utils import logger
 import os, subprocess # for the autostart
 from functools import partial
 from scripts.floating_window_snapping import move_snap_window
-#from myWidget.cmus import Cmus
 from myWidget.cmus import Cmus as myCmus
 
 mod = "mod4"
