@@ -196,7 +196,7 @@ screens = [
         top=bar.Bar([
             widget.GroupBox(fontsize=18, highlight_method='line', visible_groups=['1','2','3','4','5','6','7','8','9']),
             widget.Prompt(),
-            widget.Spacer(mouse_callbacks={'Button1':partial(os.system,'flameshot gui -p /home/roshan/Pictures/Screenshots/')}),
+            widget.Spacer(mouse_callbacks={'Button1':partial(os.system,'flameshot gui')}),
             widget.Clock(format='%d/%m %a %I:%M %p', mouse_callbacks={'Button1':partial(os.system,'zenity --calendar &')}),
             widget.Spacer(mouse_callbacks={'Button1':lazy.group['scratchpad'].dropdown_toggle('notepad')}),
             widget.Chord(
