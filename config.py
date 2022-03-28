@@ -217,7 +217,7 @@ screens = [
             widget.Sep(),
             myCmus(),
             widget.Sep(),
-            widget.PulseVolume(fmt='Vol:{}'),
+            widget.PulseVolume(fmt='{}'),
             #widget.Backlight(),
             widget.Sep(),
             widget.Battery(format='{char}{percent:2.2%}',notify_below=10,charge_char=' ', discharge_char='', foreground='ffffff'),
