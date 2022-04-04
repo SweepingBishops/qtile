@@ -218,17 +218,11 @@ screens = [
             myCmus(),
             widget.Sep(),
             widget.PulseVolume(fmt='{}'),
-            #widget.Backlight(),
             widget.Sep(),
             widget.Battery(format='{char}{percent:2.2%}',notify_below=10,charge_char=' ', discharge_char='', foreground='ffffff'),
             widget.Sep(),
-            #widget.Net(),
-            #widget.Sep(),
-            #widget.QuickExit(default_text= '[Logout]'),
             ],
             24,
-            # border_width=[2, 0, 2, 0],  # Draw top and bottom borders
-            # border_color=["ff00ff", "000000", "ff00ff", "000000"]  # Borders are magenta
         ),
     ),
 ]
