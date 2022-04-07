@@ -6,10 +6,12 @@ from libqtile.config import Click, Drag, Group, Key, KeyChord, Match, Screen, Ez
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 from libqtile.log_utils import logger
+from plasma import Plasma
 import os, subprocess # for the autostart
 from functools import partial
 from scripts.floating_window_snapping import move_snap_window
 from myWidget.cmus import Cmus as myCmus
+from myWidget.chord import Chord as myChord
 
 mod = "mod4"
 terminal = guess_terminal()
@@ -41,14 +43,14 @@ keys = [
     Key([mod],'space',              lazy.layout.next(),                                             desc='Move focus to the next window'),
 
     # Window position
-    Key([mod,'shift'],'j',          lazy.layout.shuffle_left(),                                     desc='Move window to the left'),
-    Key([mod,'shift'],'Left',       lazy.layout.shuffle_left(),                                     desc='Move window to the left'),
-    Key([mod,'shift'],'semicolon',  lazy.layout.shuffle_right(),                                    desc='Move window to the right'),
-    Key([mod,'shift'],'Right',      lazy.layout.shuffle_right(),                                    desc='Move window to the right'),
-    Key([mod,'shift'],'l',          lazy.layout.shuffle_up(),                                       desc='Move window up'),
-    Key([mod,'shift'],'Up',         lazy.layout.shuffle_up(),                                       desc='Move window up'),
-    Key([mod,'shift'],'k',          lazy.layout.shuffle_down(),                                     desc='Move window down'),
-    Key([mod,'shift'],'Down',       lazy.layout.shuffle_down(),                                     desc='Move window down'),
+    Key([mod,'shift'],'j',          lazy.layout.shuffle_left().when(layout='columns'),              desc='Move window to the left'),
+    Key([mod,'shift'],'Left',       lazy.layout.shuffle_left().when(layout='columns'),              desc='Move window to the left'),
+    Key([mod,'shift'],'semicolon',  lazy.layout.shuffle_right().when(layout='columns'),             desc='Move window to the right'),
+    Key([mod,'shift'],'Right',      lazy.layout.shuffle_right().when(layout='columns'),             desc='Move window to the right'),
+    Key([mod,'shift'],'l',          lazy.layout.shuffle_up().when(layout='columns'),                desc='Move window up'),
+    Key([mod,'shift'],'Up',         lazy.layout.shuffle_up().when(layout='columns'),                desc='Move window up'),
+    Key([mod,'shift'],'k',          lazy.layout.shuffle_down().when(layout='columns'),              desc='Move window down'),
+    Key([mod,'shift'],'Down',       lazy.layout.shuffle_down().when(layout='columns'),              desc='Move window down'),
     Key([mod,'shift'],'m',          lazy.group.unminimize_all(),                                    desc='Unminimize all the window in a group'),
     Key([mod],'m',                  lazy.window.minimize(),                                         desc='Minimize window'),
     Key([mod],'f',                  lazy.window.toggle_floating(),                                  desc='Toggle floating'),
@@ -69,6 +71,26 @@ keys = [
     Key([mod,'shift'],'Return',     lazy.layout.toggle_split(),                                     desc='Toggle stack mode'),
     Key([mod],'Tab',                lazy.next_layout(),                                             desc='Cycle layouts'),
 
+    # Plasma layout
+    Key([mod,'shift'],'j',          lazy.layout.move_left().when(layout='plasma'),                  desc='Move window to the left'),
+    Key([mod,'shift'],'Left',       lazy.layout.move_left().when(layout='plasma'),                  desc='Move window to the left'),
+    Key([mod,'shift'],'semicolon',  lazy.layout.move_right().when(layout='plasma'),                 desc='Move window to the right'),
+    Key([mod,'shift'],'Right',      lazy.layout.move_right().when(layout='plasma'),                 desc='Move window to the right'),
+    Key([mod,'shift'],'l',          lazy.layout.move_up().when(layout='plasma'),                    desc='Move window up'),
+    Key([mod,'shift'],'Up',         lazy.layout.move_up().when(layout='plasma'),                    desc='Move window up'),
+    Key([mod,'shift'],'k',          lazy.layout.move_down().when(layout='plasma'),                  desc='Move window down'),
+    Key([mod,'shift'],'Down',       lazy.layout.move_down().when(layout='plasma'),                  desc='Move window down'),
+
+    Key([mod,'control'],'j',        lazy.layout.grow_width(-10).when(layout='plasma'),              desc='Shrink window width by 10px'),
+    Key([mod,'control'],'Left',     lazy.layout.grow_width(-10).when(layout='plasma'),              desc='Shrink window width by 10px'),
+    Key([mod,'control'],'semicolon',lazy.layout.grow_width(10).when(layout='plasma'),               desc='Grow window width by 10px'),
+    Key([mod,'control'],'Right',    lazy.layout.grow_width(10).when(layout='plasma'),               desc='Grow window width by 10px'),
+    Key([mod,'control'],'l',        lazy.layout.grow_height(10).when(layout='plasma'),              desc='Grow window height by 10px'),
+    Key([mod,'control'],'Up',       lazy.layout.grow_height(10).when(layout='plasma'),              desc='Grow window height by 10px'),
+    Key([mod,'control'],'k',        lazy.layout.grow_height(-10).when(layout='plasma'),             desc='Shrink window height by 10px'),
+    Key([mod,'control'],'Down',     lazy.layout.grow_height(-10).when(layout='plasma'),             desc='Shrink window height by 10px'),
+    Key([mod,'control'],'equal',    lazy.layout.reset_size().when(layout='plasma'),                 desc='Reset sizes of windows in plasma'),
+
     # XF86 commands
     Key([],'XF86AudioLowerVolume',  lazy.function(sys_run,'pulsemixer --change-volume -2'),         desc='Lower pulseaudio volume by 2%'),
     Key([],'XF86AudioRaiseVolume',  lazy.function(sys_run,'pulsemixer --change-volume +2'),         desc='Raise pulseaudio volume by 2%'),
@@ -85,24 +107,51 @@ keys = [
 
     # Qtile chords
     KeyChord([mod],'z',[
-        Key([],'q',                 lazy.shutdown(),                                                desc='Kill qtile'),
-        Key([],'r',                 lazy.reload_config(),                                           desc='Reload config'),
-        Key([],'l',                 lazy.function(sys_run,'betterlockscreen --off 15 -l dim'),      desc='lock screen'),
-        ]),
+        Key([],'q',                 lazy.shutdown(),lazy.ungrab_chord(),                                              desc='Kill qtile'),
+        Key([],'r',                 lazy.reload_config(),lazy.ungrab_chord(),                                         desc='Reload config'),
+        Key([],'l',                 lazy.function(sys_run,'betterlockscreen --off 15 -l dim'),lazy.ungrab_chord(),    desc='lock screen'),
+        ],
+        mode='Qtile'),
 
     # Dunst chords
     KeyChord([mod,'shift'],'d',[
-        Key([],'h',                 lazy.function(sys_run,'dunstctl history-pop'),                  desc='Show last notification'),
-        Key([],'a',                 lazy.function(sys_run,'dunstctl context'),                      desc='Show context menu'),
-        Key([],'c',                 lazy.function(sys_run,'dunstctl close-all'),                    desc='Close all notifications'),
-        ]),
+        Key([],'h',                 lazy.function(sys_run,'dunstctl history-pop'),lazy.ungrab_chord(),                desc='Show last notification'),
+        Key([],'a',                 lazy.function(sys_run,'dunstctl context'),lazy.ungrab_chord(),                    desc='Show context menu'),
+        Key([],'c',                 lazy.function(sys_run,'dunstctl close-all'),lazy.ungrab_chord(),                  desc='Close all notifications'),
+        ],
+        mode='Notification'),
 
     # ScratchPad
     KeyChord([mod],'s',[
-        Key([],'c',                 lazy.group['scratchpad'].dropdown_toggle('calculator'),         desc='Toggle calculator scratchpad'),
-        Key([],'k',                 lazy.group['scratchpad'].dropdown_toggle('terminal'),           desc='Toggle terminal scratchpad'),
-        Key([],'n',                 lazy.group['scratchpad'].dropdown_toggle('notepad'),           desc='Toggle notepad scratchpad'),
-        ]),
+        Key([],'c',                 lazy.group['scratchpad'].dropdown_toggle('calculator'),lazy.ungrab_chord(),       desc='Toggle calculator scratchpad'),
+        Key([],'k',                 lazy.group['scratchpad'].dropdown_toggle('terminal'),lazy.ungrab_chord(),         desc='Toggle terminal scratchpad'),
+        Key([],'n',                 lazy.group['scratchpad'].dropdown_toggle('notepad'),lazy.ungrab_chord(),          desc='Toggle notepad scratchpad'),
+        ],
+        mode='Scratchpad'),
+
+    # Plasma
+    KeyChord([mod,'shift'],'s',[
+        Key([],'h',                 lazy.layout.mode_horizontal(),lazy.ungrab_chord(),              desc='Horizontal mode for plasma layout'),
+        Key([],'v',                 lazy.layout.mode_vertical(),lazy.ungrab_chord(),                desc='Vertical mode for plasma layout'),
+        KeyChord([],'s',[
+            Key([],'h',             lazy.layout.mode_horizontal_split(),lazy.ungrab_all_chords(),   desc='Horizontal split mode for plasma'),
+            Key([],'v',             lazy.layout.mode_vertical_split(),lazy.ungrab_all_chords(),     desc='Vertical split mode for plasma'),
+            ],
+            mode='split'),
+        ],
+        mode='Set mode'),
+
+    KeyChord([mod,'control'],'s',[
+        Key([],'j',                 lazy.layout.integrate_left(),lazy.ungrab_chord(),               desc='Integrate left for plasma layout'),
+        Key([],'Left',              lazy.layout.integrate_left(),lazy.ungrab_chord(),               desc='Integrate left for plasma layout'),
+        Key([],'semicolon',         lazy.layout.integrate_right(),lazy.ungrab_chord(),              desc='Integrate right plasma layout'),
+        Key([],'Right',             lazy.layout.integrate_right(),lazy.ungrab_chord(),              desc='Integrate right plasma layout'),
+        Key([],'l',                 lazy.layout.integrate_up(),lazy.ungrab_chord(),                 desc='Integrate up plasma layout'),
+        Key([],'Up',                lazy.layout.integrate_up(),lazy.ungrab_chord(),                 desc='Integrate up plasma layout'),
+        Key([],'k',                 lazy.layout.integrate_down(),lazy.ungrab_chord(),               desc='Integrate down plasma layout'),
+        Key([],'Down',              lazy.layout.integrate_down(),lazy.ungrab_chord(),               desc='Integrate down plasma layout'),
+        ],
+        mode='Integrate'),
     ]
 
 ###Groups###
@@ -135,8 +184,9 @@ groups.append(ScratchPad('scratchpad', [DropDown('calculator', 'gnome-calculator
 
 ###Layouts###
 layouts = [
-    layout.Columns(border_focus_stack=['#d75f5f', '#8f3d3d'], border_width=2, margin=0, margin_on_single=0),
+    Plasma(border_normal='#220000', border_focus='#881111', border_normal_fixed='#220000', border_focus_fixed='#881111',border_width=2,border_width_single=0),
     layout.Max(),
+    #layout.Columns(border_focus_stack=['#d75f5f', '#8f3d3d'], border_width=2, margin=0, margin_on_single=0),
     #layout.MonadWide(border_focus='#881111',single_border_width=0),
     ]
 
@@ -152,6 +202,7 @@ screens = [
         top=bar.Bar([
             widget.GroupBox(fontsize=18, highlight_method='line', visible_groups=['1','2','3','4','5','6','7','8','9']),
             widget.Prompt(),
+            myChord(),
             widget.Spacer(mouse_callbacks={'Button1':partial(os.system,'flameshot gui')}),
             widget.Clock(format='%d/%m %a %I:%M %p', mouse_callbacks={'Button1':partial(os.system,'zenity --calendar &')}),
             widget.Spacer(mouse_callbacks={'Button1':lazy.group['scratchpad'].dropdown_toggle('notepad')}),
