@@ -102,7 +102,7 @@ keys = [
     Key([],'Print',                 lazy.function(command_run,'flameshot full'),                        desc='Take a whole desktop screenshot'),
     
     # Notification
-    Key(['control'],'space',        lazy.function(command_run,'dunstclt close'),                        desc='Close notification'),
+    Key(['control'],'space',        lazy.function(command_run,'dunstctl close'),                        desc='Close notification'),
 
     # Qtile chords
     KeyChord([mod],'z',[
