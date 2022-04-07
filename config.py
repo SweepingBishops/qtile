@@ -2,7 +2,7 @@
 from typing import List  # noqa: F401
 
 from libqtile import bar, layout, widget, hook, qtile, extension
-from libqtile.config import Click, Drag, Group, Key, Match, Screen, EzKey, ScratchPad, DropDown
+from libqtile.config import Click, Drag, Group, Key, KeyChord, Match, Screen, EzKey, ScratchPad, DropDown
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 from libqtile.log_utils import logger
@@ -12,136 +12,97 @@ from scripts.floating_window_snapping import move_snap_window
 from myWidget.cmus import Cmus as myCmus
 
 mod = "mod4"
-#terminal = guess_terminal()
-terminal = '/usr/bin/kitty'
+terminal = guess_terminal()
 
-##########my functions#############
-def screenLock(qtile):
-    os.system('betterlockscreen --off 15 -l dim')
-
-def lowerVolume(qtile):
-    subprocess.call(['/home/roshan/.config/qtile/scripts/lowerVolume.sh'])
-
-def raiseVolume(qtile):
-    subprocess.call(['/home/roshan/.config/qtile/scripts/raiseVolume.sh'])
-
-def muteUnmute(qtile):
-    subprocess.call(['/home/roshan/.config/qtile/scripts/muteUnmute.sh'])
-
-def brightDown(qtile):
-    os.system("brightnessctl -d 'intel_backlight' set 2%-")
-
-def brightUp(qtile):
-    os.system("brightnessctl -d 'intel_backlight' set +2%")
-
-def screenshot(qtile):
-    os.system('flameshot full -p /home/roshan/Pictures/Screenshots/')
-
-def rofi(qtile):
-    os.system('rofi -show drun')
-
-def notification_history(qtile):
-    os.system('dunstctl history-pop')
-
-def notification_close(qtile):
-    os.system('dunstctl close')
-
-def notification_close_all(qtile):
-    os.system('dunstctl close-all')
-
-def notification_context(qtile):
-    os.system('dunstctl context')
-#def minimize(qtile):
-#   subprocess.call(['/home/roshan/.config/qtile/scripts/minimize.sh'])
-#
-#def unminimize(qtile):
-#   subprocess.call(['/home/roshan/.config/qtile/scripts/unminimize.sh'])
-####################################
-
+############my functions#############
+def sys_run(qtile,command):
+    os.system(command)
+######################################
 
 ###Key Bindings###
 keys = [
-    # A list of available commands that can be bound to keys can be found
-    # at https://docs.qtile.org/en/latest/manual/config/lazy.html
+    # Spawn
+    Key([mod],'Return',             lazy.spawn(terminal),                                           desc='Launch terminal'),
+    Key([mod],'r',                  lazy.spawncmd(),                                                desc='Run command using prompt widget'),
+    Key([mod],'v',                  lazy.spawn("vivaldi-stable"),                                   desc='Launch vivaldi'),
+    Key([mod],'c',                  lazy.spawn("galculator"),                                       desc='Launch galculator'),
+    Key([mod],'q',                  lazy.window.kill(),                                             desc='Kill focused window'),
+    Key([mod],'w',                  lazy.function(sys_run,'rofi -show drun'),                       desc='Launch rofi'),
+    
+    # Window focus
+    Key([mod],'j',                  lazy.layout.left(),                                             desc='Move focus to the left'),
+    Key([mod],'Left',               lazy.layout.left(),                                             desc='Move focus to the left'),
+    Key([mod],'semicolon',          lazy.layout.right(),                                            desc='Move focus to the right'),
+    Key([mod],'Right',              lazy.layout.right(),                                            desc='Move focus to the right'),
+    Key([mod],'l',                  lazy.layout.up(),                                               desc='Move focus up'),
+    Key([mod],'Up',                 lazy.layout.up(),                                               desc='Move focus up'),
+    Key([mod],'k',                  lazy.layout.down(),                                             desc='Move focus down'),
+    Key([mod],'Down',               lazy.layout.down(),                                             desc='Move focus down'),
+    Key([mod],'space',              lazy.layout.next(),                                             desc='Move focus to the next window'),
 
-    # Switch between windows
-    EzKey("M-j", lazy.layout.left(), desc="Move focus to left"),
-    Key([mod],"Left", lazy.layout.left(), desc="Move focus to left"),
-    EzKey("M-k", lazy.layout.down(), desc="Move focus to down"),
-    Key([mod],"Down", lazy.layout.down(), desc="Move focus to down"),
-    EzKey("M-l", lazy.layout.up(), desc="Move focus up"),
-    Key([mod],"Up", lazy.layout.up(), desc="Move focus up"),
-    Key([mod],'semicolon', lazy.layout.right(), desc="Move focus right"),
-    Key([mod],'Right', lazy.layout.right(), desc="Move focus right"),
-    Key([mod], "space", lazy.layout.next(),
-        desc="Move window focus to other window"),
+    # Window position
+    Key([mod,'shift'],'j',          lazy.layout.shuffle_left(),                                     desc='Move window to the left'),
+    Key([mod,'shift'],'Left',       lazy.layout.shuffle_left(),                                     desc='Move window to the left'),
+    Key([mod,'shift'],'semicolon',  lazy.layout.shuffle_right(),                                    desc='Move window to the right'),
+    Key([mod,'shift'],'Right',      lazy.layout.shuffle_right(),                                    desc='Move window to the right'),
+    Key([mod,'shift'],'l',          lazy.layout.shuffle_up(),                                       desc='Move window up'),
+    Key([mod,'shift'],'Up',         lazy.layout.shuffle_up(),                                       desc='Move window up'),
+    Key([mod,'shift'],'k',          lazy.layout.shuffle_down(),                                     desc='Move window down'),
+    Key([mod,'shift'],'Down',       lazy.layout.shuffle_down(),                                     desc='Move window down'),
+    Key([mod,'shift'],'m',          lazy.group.unminimize_all(),                                    desc='Unminimize all the window in a group'),
+    Key([mod],'m',                  lazy.window.minimize(),                                         desc='Minimize window'),
+    Key([mod],'f',                  lazy.window.toggle_floating(),                                  desc='Toggle floating'),
 
-    # Move windows between left/right columns or move up/down in current stack.
-    EzKey("M-S-j", lazy.layout.shuffle_left()),
-    Key([mod,"shift"],"Left", lazy.layout.shuffle_left(),
-        desc="Move window to the left"),
-    EzKey("M-S-k", lazy.layout.shuffle_down()),
-    Key([mod,"shift"],"Down", lazy.layout.shuffle_down(),
-        desc="Move window to the down"),
-    EzKey("M-S-l", lazy.layout.shuffle_up()),
-    Key([mod,"shift"],"Up", lazy.layout.shuffle_up(),
-        desc="Move window up"),
-    Key([mod,"shift"],'semicolon', lazy.layout.shuffle_right(), desc="Move focus right"),
-    Key([mod,"shift"],'Right', lazy.layout.shuffle_right(), desc="Move focus right"),
+    # Window size
+    Key([mod,'control'],'j',        lazy.layout.grow_left(),                                        desc='Grow window to the left'),
+    Key([mod,'control'],'Left',     lazy.layout.grow_left(),                                        desc='Grow window to the left'),
+    Key([mod,'control'],'semicolon',lazy.layout.grow_right(),                                       desc='Grow window to the right'),
+    Key([mod,'control'],'Right',    lazy.layout.grow_right(),                                       desc='Grow window to the right'),
+    Key([mod,'control'],'l',        lazy.layout.grow_up(),                                          desc='Grow window to the up'),
+    Key([mod,'control'],'Up',       lazy.layout.grow_up(),                                          desc='Grow window to the up'),
+    Key([mod,'control'],'k',        lazy.layout.grow_down(),                                        desc='Grow window to the down'),
+    Key([mod,'control'],'Down',     lazy.layout.grow_down(),                                        desc='Grow window to the down'),
+    Key([mod,'control'],'equal',    lazy.layout.normalize(),                                        desc='Reset all window sizes'),
+    Key([mod,'control'],'f',        lazy.window.toggle_fullscreen(),                                desc='Toggle fullscreen'),
 
-    # Grow windows. If current window is on the edge of screen and direction
-    # will be to screen edge - window would shrink.
-    EzKey("M-C-j", lazy.layout.grow_left()),
-    Key([mod,"control"],"Left", lazy.layout.grow_left(),
-        desc="Grow window to the left"),
-    EzKey("M-C-k", lazy.layout.grow_down()),
-    Key([mod,"control"],"Down", lazy.layout.grow_down(),
-        desc="Grow window to the down"),
-    EzKey("M-C-l", lazy.layout.grow_up()),
-    Key([mod,"control"],"Up", lazy.layout.grow_up(),
-        desc="Grow window up"),
-    Key([mod,"control"],'semicolon', lazy.layout.grow_right(), desc="Move focus right"),
-    Key([mod,"control"],'Right', lazy.layout.grow_right(), desc="Move focus right"),
-    Key([mod], "comma", lazy.layout.normalize(), desc="Reset all window sizes"),
-    Key([mod], "period", lazy.layout.grow()),
-    Key([mod], "n", lazy.layout.shrink()),
-    Key([mod], "m", lazy.layout.maximize()),
+    # Layout control
+    Key([mod,'shift'],'Return',     lazy.layout.toggle_split(),                                     desc='Toggle stack mode'),
+    Key([mod],'Tab',                lazy.next_layout(),                                             desc='Cycle layouts'),
 
-    # Toggle between split and unsplit sides of stack.
-    # Split = all windows displayed
-    # Unsplit = 1 window displayed, like Max layout, but still with
-    # multiple stack panes
-    Key([mod, "shift"], "Return", lazy.layout.toggle_split(),
-        desc="Toggle between split and unsplit sides of stack"),
-    Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
+    # XF86 commands
+    Key([],'XF86AudioLowerVolume',  lazy.function(sys_run,'pulsemixer --change-volume -2'),         desc='Lower pulseaudio volume by 2%'),
+    Key([],'XF86AudioRaiseVolume',  lazy.function(sys_run,'pulsemixer --change-volume +2'),         desc='Raise pulseaudio volume by 2%'),
+    Key([],'XF86AudioMute',         lazy.function(sys_run,'pulsemixer --toggle-mute'),              desc='Toggle pulseaudio mute'),
+    Key([],'XF86MonBrightnessDown', lazy.function(sys_run,'brightnessctl -d "intel_backlight" set 2%-'),    desc='Decrease monitor brightness by 2%'),
+    Key([],'XF86MonBrightnessUp',   lazy.function(sys_run,'brightnessctl -d "intel_backlight" set +2%'),    desc='Increase monitor brightness by 2%'),
+    Key([],'XF86AudioPlay',         lazy.function(sys_run,'cmus-remote --pause'),                   desc='Cmus pause'),
+    Key([],'XF86AudioNext',         lazy.function(sys_run,'cmus-remote --next'),                    desc='Cmus next'),
+    Key([],'XF86AudioPrev',         lazy.function(sys_run,'cmus-remote --prev'),                    desc='Cmus prev'),
+    Key([],'Print',                 lazy.function(sys_run,'flameshot full'),                        desc='Take a whole desktop screenshot'),
+    
+    # Notification
+    Key(['control'],'space',        lazy.function(sys_run,'dunstclt close'),                        desc='Close notification'),
 
-    # Toggle between different layouts as defined below
-    Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
-    Key([mod], "q", lazy.window.kill(), desc="Kill focused window"),
+    # Qtile chords
+    KeyChord([mod],'z',[
+        Key([],'q',                 lazy.shutdown(),                                                desc='Kill qtile'),
+        Key([],'r',                 lazy.reload_config(),                                           desc='Reload config'),
+        Key([],'l',                 lazy.function(sys_run,'betterlockscreen --off 15 -l dim'),      desc='lock screen'),
+        ]),
 
-    Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
-    Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
-    Key([mod], "r", lazy.spawncmd(),
-        desc="Spawn a command using a prompt widget"),
-    EzKey("A-z",lazy.spawn("vivaldi-stable"),desc="Launch Vivaldi."),
-    EzKey("A-c",lazy.spawn("galculator"), desc="Launches Calculator"),
-    EzKey("A-l",lazy.function(screenLock),desc="Lock Screen"),
-    Key([],'XF86AudioLowerVolume', lazy.function(lowerVolume), desc="Lowers PulseAudio Volume"),
-    Key([],'XF86AudioRaiseVolume', lazy.function(raiseVolume), desc="Raises PulseAudio Volume"),
-    Key([],'XF86AudioMute', lazy.function(muteUnmute), desc="Toggles audio mute"),
-    Key([],'XF86MonBrightnessDown', lazy.function(brightDown), desc="Decreases Monitor Brightness"),
-    Key([],'XF86MonBrightnessUp', lazy.function(brightUp), desc="Increases Monitor Brightness"),
-    Key([],'Print', lazy.function(screenshot), desc="Takes a screenshot and saves it to ~/Pictures/Screenshots"),
-    Key([mod],"w",lazy.function(rofi), desc='Opens rofi'),
-    #Key(['mod1', "shift"], "m", lazy.function(unminimize), desc="unminimize window"), 
-    #Key(['mod1'], "m", lazy.function(minimize)), 
-    Key(['control'],'grave', lazy.function(notification_history)),
-    Key(['control'],'space', lazy.function(notification_close)),
-    Key(['control', 'shift'], 'space', lazy.function(notification_close_all)),
-    Key(['control', 'shift'], 'grave', lazy.function(notification_context)),
-    Key([],'XF86AudioPlay', lazy.function(lambda qtile: os.system('cmus-remote --pause'))),
-    Key([],'XF86AudioNext', lazy.function(lambda qtile: os.system('cmus-remote --next'))),
-    Key([],'XF86AudioPrev', lazy.function(lambda qtile: os.system('cmus-remote --prev'))),
+    # Dunst chords
+    KeyChord([mod,'shift'],'d',[
+        Key([],'h',                 lazy.function(sys_run,'dunstctl history-pop'),                  desc='Show last notification'),
+        Key([],'a',                 lazy.function(sys_run,'dunstctl context'),                      desc='Show context menu'),
+        Key([],'c',                 lazy.function(sys_run,'dunstctl close-all'),                    desc='Close all notifications'),
+        ]),
+
+    # ScratchPad
+    KeyChord([mod],'s',[
+        Key([],'c',                 lazy.group['scratchpad'].dropdown_toggle('calculator'),         desc='Toggle calculator scratchpad'),
+        Key([],'k',                 lazy.group['scratchpad'].dropdown_toggle('terminal'),           desc='Toggle terminal scratchpad'),
+        Key([],'n',                 lazy.group['scratchpad'].dropdown_toggle('notepad'),           desc='Toggle notepad scratchpad'),
+        ]),
     ]
 
 ###Groups###
@@ -172,10 +133,6 @@ groups.append(ScratchPad('scratchpad', [DropDown('calculator', 'gnome-calculator
     DropDown('terminal', 'kitty', opacity=0.95),
     DropDown('notepad', '/home/roshan/repos/Write/Write', opacity=0.8, height=0.5),]))
 
-keys.append(Key([mod], 'c', lazy.group['scratchpad'].dropdown_toggle('calculator')))
-keys.append(Key([mod], 'v', lazy.group['scratchpad'].dropdown_toggle('terminal')))
-keys.append(Key([mod], 'b', lazy.group['scratchpad'].dropdown_toggle('notepad')))
-
 ###Layouts###
 layouts = [
     layout.Columns(border_focus_stack=['#d75f5f', '#8f3d3d'], border_width=2, margin=0, margin_on_single=0),
@@ -185,7 +142,6 @@ layouts = [
 
 ###Widgets###
 widget_defaults = dict(
-    font='DejaVu Sans Nerd Font',
     fontsize=13,
     padding=3,
     )
@@ -199,12 +155,6 @@ screens = [
             widget.Spacer(mouse_callbacks={'Button1':partial(os.system,'flameshot gui')}),
             widget.Clock(format='%d/%m %a %I:%M %p', mouse_callbacks={'Button1':partial(os.system,'zenity --calendar &')}),
             widget.Spacer(mouse_callbacks={'Button1':lazy.group['scratchpad'].dropdown_toggle('notepad')}),
-            widget.Chord(
-                chords_colors={
-                    'launch': ("#ff0000", "#ffffff"),
-                    },
-                    name_transform=lambda name: name.upper(),
-                    ),
             widget.WidgetBox(widgets=[
                                 widget.NetGraph(),
                                 widget.Systray(),
@@ -240,7 +190,7 @@ dgroups_key_binder = None
 dgroups_app_rules = []  # type: List
 follow_mouse_focus = True
 bring_front_click = True
-cursor_warp = False
+cursor_warp = True
 floating_layout = layout.Floating(float_rules=[
     # Run the utility of `xprop` to see the wm class and name of an X client.
     *layout.Floating.default_float_rules,
@@ -258,7 +208,7 @@ reconfigure_screens = True
 
 # If things like steam games want to auto-minimize themselves when losing
 # focus, should we respect this or not?
-auto_minimize = True
+auto_minimize = False
 
 # XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
 # string besides java UI toolkits; you can see several discussions on the
