@@ -122,7 +122,7 @@ keys = [
         mode='Notification'),
 
     # ScratchPad
-    KeyChord([mod],'s',[
+    KeyChord([mod,'shift'],'s',[
         Key([],'c',                 lazy.group['scratchpad'].dropdown_toggle('calculator'),lazy.ungrab_all_chords(),       desc='Toggle calculator scratchpad'),
         Key([],'k',                 lazy.group['scratchpad'].dropdown_toggle('terminal'),lazy.ungrab_all_chords(),         desc='Toggle terminal scratchpad'),
         Key([],'n',                 lazy.group['scratchpad'].dropdown_toggle('notepad'),lazy.ungrab_all_chords(),          desc='Toggle notepad scratchpad'),
@@ -130,7 +130,7 @@ keys = [
         mode='Scratchpad'),
 
     # Plasma
-    KeyChord([mod,'shift'],'s',[
+    KeyChord([mod],'s',[
         Key([],'h',                 lazy.layout.mode_horizontal(),lazy.ungrab_all_chords(),              desc='Horizontal mode for plasma layout'),
         Key([],'v',                 lazy.layout.mode_vertical(),lazy.ungrab_all_chords(),                desc='Vertical mode for plasma layout'),
         KeyChord([],'s',[
@@ -141,7 +141,7 @@ keys = [
         ],
         mode='Set mode'),
 
-    KeyChord([mod,'control'],'s',[
+    KeyChord([mod],'i',[
         Key([],'j',                 lazy.layout.integrate_left(),lazy.ungrab_all_chords(),               desc='Integrate left for plasma layout'),
         Key([],'Left',              lazy.layout.integrate_left(),lazy.ungrab_all_chords(),               desc='Integrate left for plasma layout'),
         Key([],'semicolon',         lazy.layout.integrate_right(),lazy.ungrab_all_chords(),              desc='Integrate right plasma layout'),
