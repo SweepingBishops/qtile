@@ -16,7 +16,7 @@ mod = "mod4"
 terminal = guess_terminal()
 
 ############my functions#############
-def sys_run(qtile,command):
+def command_run(qtile,command):
     os.system(command)
 ######################################
 
@@ -28,7 +28,7 @@ keys = [
     Key([mod],'v',                  lazy.spawn("vivaldi-stable"),                                   desc='Launch vivaldi'),
     Key([mod],'c',                  lazy.spawn("galculator"),                                       desc='Launch galculator'),
     Key([mod],'q',                  lazy.window.kill(),                                             desc='Kill focused window'),
-    Key([mod],'w',                  lazy.function(sys_run,'rofi -show drun'),                       desc='Launch rofi'),
+    Key([mod],'w',                  lazy.function(command_run,'rofi -show drun'),                   desc='Launch rofi'),
     
     # Window focus
     Key([mod],'j',                  lazy.layout.left(),                                             desc='Move focus to the left'),
@@ -91,32 +91,32 @@ keys = [
     Key([mod,'control'],'equal',    lazy.layout.reset_size().when(layout='plasma'),                 desc='Reset sizes of windows in plasma'),
 
     # XF86 commands
-    Key([],'XF86AudioLowerVolume',  lazy.function(sys_run,'pulsemixer --change-volume -2'),         desc='Lower pulseaudio volume by 2%'),
-    Key([],'XF86AudioRaiseVolume',  lazy.function(sys_run,'pulsemixer --change-volume +2'),         desc='Raise pulseaudio volume by 2%'),
-    Key([],'XF86AudioMute',         lazy.function(sys_run,'pulsemixer --toggle-mute'),              desc='Toggle pulseaudio mute'),
-    Key([],'XF86MonBrightnessDown', lazy.function(sys_run,'brightnessctl -d "intel_backlight" set 2%-'),    desc='Decrease monitor brightness by 2%'),
-    Key([],'XF86MonBrightnessUp',   lazy.function(sys_run,'brightnessctl -d "intel_backlight" set +2%'),    desc='Increase monitor brightness by 2%'),
-    Key([],'XF86AudioPlay',         lazy.function(sys_run,'cmus-remote --pause'),                   desc='Cmus pause'),
-    Key([],'XF86AudioNext',         lazy.function(sys_run,'cmus-remote --next'),                    desc='Cmus next'),
-    Key([],'XF86AudioPrev',         lazy.function(sys_run,'cmus-remote --prev'),                    desc='Cmus prev'),
-    Key([],'Print',                 lazy.function(sys_run,'flameshot full'),                        desc='Take a whole desktop screenshot'),
+    Key([],'XF86AudioLowerVolume',  lazy.function(command_run,'pulsemixer --change-volume -2'),         desc='Lower pulseaudio volume by 2%'),
+    Key([],'XF86AudioRaiseVolume',  lazy.function(command_run,'pulsemixer --change-volume +2'),         desc='Raise pulseaudio volume by 2%'),
+    Key([],'XF86AudioMute',         lazy.function(command_run,'pulsemixer --toggle-mute'),              desc='Toggle pulseaudio mute'),
+    Key([],'XF86MonBrightnessDown', lazy.function(command_run,'brightnessctl -d "intel_backlight" set 2%-'),    desc='Decrease monitor brightness by 2%'),
+    Key([],'XF86MonBrightnessUp',   lazy.function(command_run,'brightnessctl -d "intel_backlight" set +2%'),    desc='Increase monitor brightness by 2%'),
+    Key([],'XF86AudioPlay',         lazy.function(command_run,'cmus-remote --pause'),                   desc='Cmus pause'),
+    Key([],'XF86AudioNext',         lazy.function(command_run,'cmus-remote --next'),                    desc='Cmus next'),
+    Key([],'XF86AudioPrev',         lazy.function(command_run,'cmus-remote --prev'),                    desc='Cmus prev'),
+    Key([],'Print',                 lazy.function(command_run,'flameshot full'),                        desc='Take a whole desktop screenshot'),
     
     # Notification
-    Key(['control'],'space',        lazy.function(sys_run,'dunstclt close'),                        desc='Close notification'),
+    Key(['control'],'space',        lazy.function(command_run,'dunstclt close'),                        desc='Close notification'),
 
     # Qtile chords
     KeyChord([mod],'z',[
-        Key([],'q',                 lazy.shutdown(),lazy.ungrab_all_chords(),                                              desc='Kill qtile'),
-        Key([],'r',                 lazy.reload_config(),lazy.ungrab_all_chords(),                                         desc='Reload config'),
-        Key([],'l',                 lazy.function(sys_run,'betterlockscreen --off 15 -l dim'),lazy.ungrab_all_chords(),    desc='lock screen'),
+        Key([],'q',                 lazy.shutdown(),lazy.ungrab_all_chords(),                                               desc='Kill qtile'),
+        Key([],'r',                 lazy.reload_config(),lazy.ungrab_all_chords(),                                          desc='Reload config'),
+        Key([],'l',                 lazy.function(command_run,'betterlockscreen --off 15 -l dim'),lazy.ungrab_all_chords(), desc='lock screen'),
         ],
         mode='Qtile'),
 
     # Dunst chords
     KeyChord([mod,'shift'],'d',[
-        Key([],'h',                 lazy.function(sys_run,'dunstctl history-pop'),lazy.ungrab_all_chords(),                desc='Show last notification'),
-        Key([],'a',                 lazy.function(sys_run,'dunstctl context'),lazy.ungrab_all_chords(),                    desc='Show context menu'),
-        Key([],'c',                 lazy.function(sys_run,'dunstctl close-all'),lazy.ungrab_all_chords(),                  desc='Close all notifications'),
+        Key([],'h',                 lazy.function(command_run,'dunstctl history-pop'),lazy.ungrab_all_chords(),             desc='Show last notification'),
+        Key([],'a',                 lazy.function(command_run,'dunstctl context'),lazy.ungrab_all_chords(),                 desc='Show context menu'),
+        Key([],'c',                 lazy.function(command_run,'dunstctl close-all'),lazy.ungrab_all_chords(),               desc='Close all notifications'),
         ],
         mode='Notification'),
 
