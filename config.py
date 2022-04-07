@@ -11,7 +11,6 @@ import os, subprocess # for the autostart
 from functools import partial
 from scripts.floating_window_snapping import move_snap_window
 from myWidget.cmus import Cmus as myCmus
-from myWidget.chord import Chord as myChord
 
 mod = "mod4"
 terminal = guess_terminal()
@@ -202,7 +201,7 @@ screens = [
         top=bar.Bar([
             widget.GroupBox(fontsize=18, highlight_method='line', visible_groups=['1','2','3','4','5','6','7','8','9']),
             widget.Prompt(),
-            myChord(),
+            widget.Chord(),
             widget.Spacer(mouse_callbacks={'Button1':partial(os.system,'flameshot gui')}),
             widget.Clock(format='%d/%m %a %I:%M %p', mouse_callbacks={'Button1':partial(os.system,'zenity --calendar &')}),
             widget.Spacer(mouse_callbacks={'Button1':lazy.group['scratchpad'].dropdown_toggle('notepad')}),
