@@ -107,49 +107,49 @@ keys = [
 
     # Qtile chords
     KeyChord([mod],'z',[
-        Key([],'q',                 lazy.shutdown(),lazy.ungrab_chord(),                                              desc='Kill qtile'),
-        Key([],'r',                 lazy.reload_config(),lazy.ungrab_chord(),                                         desc='Reload config'),
-        Key([],'l',                 lazy.function(sys_run,'betterlockscreen --off 15 -l dim'),lazy.ungrab_chord(),    desc='lock screen'),
+        Key([],'q',                 lazy.shutdown(),lazy.ungrab_all_chords(),                                              desc='Kill qtile'),
+        Key([],'r',                 lazy.reload_config(),lazy.ungrab_all_chords(),                                         desc='Reload config'),
+        Key([],'l',                 lazy.function(sys_run,'betterlockscreen --off 15 -l dim'),lazy.ungrab_all_chords(),    desc='lock screen'),
         ],
         mode='Qtile'),
 
     # Dunst chords
     KeyChord([mod,'shift'],'d',[
-        Key([],'h',                 lazy.function(sys_run,'dunstctl history-pop'),lazy.ungrab_chord(),                desc='Show last notification'),
-        Key([],'a',                 lazy.function(sys_run,'dunstctl context'),lazy.ungrab_chord(),                    desc='Show context menu'),
-        Key([],'c',                 lazy.function(sys_run,'dunstctl close-all'),lazy.ungrab_chord(),                  desc='Close all notifications'),
+        Key([],'h',                 lazy.function(sys_run,'dunstctl history-pop'),lazy.ungrab_all_chords(),                desc='Show last notification'),
+        Key([],'a',                 lazy.function(sys_run,'dunstctl context'),lazy.ungrab_all_chords(),                    desc='Show context menu'),
+        Key([],'c',                 lazy.function(sys_run,'dunstctl close-all'),lazy.ungrab_all_chords(),                  desc='Close all notifications'),
         ],
         mode='Notification'),
 
     # ScratchPad
     KeyChord([mod],'s',[
-        Key([],'c',                 lazy.group['scratchpad'].dropdown_toggle('calculator'),lazy.ungrab_chord(),       desc='Toggle calculator scratchpad'),
-        Key([],'k',                 lazy.group['scratchpad'].dropdown_toggle('terminal'),lazy.ungrab_chord(),         desc='Toggle terminal scratchpad'),
-        Key([],'n',                 lazy.group['scratchpad'].dropdown_toggle('notepad'),lazy.ungrab_chord(),          desc='Toggle notepad scratchpad'),
+        Key([],'c',                 lazy.group['scratchpad'].dropdown_toggle('calculator'),lazy.ungrab_all_chords(),       desc='Toggle calculator scratchpad'),
+        Key([],'k',                 lazy.group['scratchpad'].dropdown_toggle('terminal'),lazy.ungrab_all_chords(),         desc='Toggle terminal scratchpad'),
+        Key([],'n',                 lazy.group['scratchpad'].dropdown_toggle('notepad'),lazy.ungrab_all_chords(),          desc='Toggle notepad scratchpad'),
         ],
         mode='Scratchpad'),
 
     # Plasma
     KeyChord([mod,'shift'],'s',[
-        Key([],'h',                 lazy.layout.mode_horizontal(),lazy.ungrab_chord(),              desc='Horizontal mode for plasma layout'),
-        Key([],'v',                 lazy.layout.mode_vertical(),lazy.ungrab_chord(),                desc='Vertical mode for plasma layout'),
+        Key([],'h',                 lazy.layout.mode_horizontal(),lazy.ungrab_all_chords(),              desc='Horizontal mode for plasma layout'),
+        Key([],'v',                 lazy.layout.mode_vertical(),lazy.ungrab_all_chords(),                desc='Vertical mode for plasma layout'),
         KeyChord([],'s',[
-            Key([],'h',             lazy.layout.mode_horizontal_split(),lazy.ungrab_all_chords(),   desc='Horizontal split mode for plasma'),
-            Key([],'v',             lazy.layout.mode_vertical_split(),lazy.ungrab_all_chords(),     desc='Vertical split mode for plasma'),
+            Key([],'h',             lazy.layout.mode_horizontal_split(),lazy.ungrab_all_chords(),        desc='Horizontal split mode for plasma'),
+            Key([],'v',             lazy.layout.mode_vertical_split(),lazy.ungrab_all_chords(),          desc='Vertical split mode for plasma'),
             ],
             mode='split'),
         ],
         mode='Set mode'),
 
     KeyChord([mod,'control'],'s',[
-        Key([],'j',                 lazy.layout.integrate_left(),lazy.ungrab_chord(),               desc='Integrate left for plasma layout'),
-        Key([],'Left',              lazy.layout.integrate_left(),lazy.ungrab_chord(),               desc='Integrate left for plasma layout'),
-        Key([],'semicolon',         lazy.layout.integrate_right(),lazy.ungrab_chord(),              desc='Integrate right plasma layout'),
-        Key([],'Right',             lazy.layout.integrate_right(),lazy.ungrab_chord(),              desc='Integrate right plasma layout'),
-        Key([],'l',                 lazy.layout.integrate_up(),lazy.ungrab_chord(),                 desc='Integrate up plasma layout'),
-        Key([],'Up',                lazy.layout.integrate_up(),lazy.ungrab_chord(),                 desc='Integrate up plasma layout'),
-        Key([],'k',                 lazy.layout.integrate_down(),lazy.ungrab_chord(),               desc='Integrate down plasma layout'),
-        Key([],'Down',              lazy.layout.integrate_down(),lazy.ungrab_chord(),               desc='Integrate down plasma layout'),
+        Key([],'j',                 lazy.layout.integrate_left(),lazy.ungrab_all_chords(),               desc='Integrate left for plasma layout'),
+        Key([],'Left',              lazy.layout.integrate_left(),lazy.ungrab_all_chords(),               desc='Integrate left for plasma layout'),
+        Key([],'semicolon',         lazy.layout.integrate_right(),lazy.ungrab_all_chords(),              desc='Integrate right plasma layout'),
+        Key([],'Right',             lazy.layout.integrate_right(),lazy.ungrab_all_chords(),              desc='Integrate right plasma layout'),
+        Key([],'l',                 lazy.layout.integrate_up(),lazy.ungrab_all_chords(),                 desc='Integrate up plasma layout'),
+        Key([],'Up',                lazy.layout.integrate_up(),lazy.ungrab_all_chords(),                 desc='Integrate up plasma layout'),
+        Key([],'k',                 lazy.layout.integrate_down(),lazy.ungrab_all_chords(),               desc='Integrate down plasma layout'),
+        Key([],'Down',              lazy.layout.integrate_down(),lazy.ungrab_all_chords(),               desc='Integrate down plasma layout'),
         ],
         mode='Integrate'),
     ]
