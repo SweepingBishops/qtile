@@ -177,7 +177,7 @@ for i in groups:
             desc="Switch to & move focused window to group {}".format(i.name)),
         ])
 
-groups.append(ScratchPad('scratchpad', [DropDown('calculator', 'gnome-calculator'),
+groups.append(ScratchPad('scratchpad', [DropDown('calculator', 'galculator'),
     DropDown('terminal', 'kitty', opacity=0.95),
     DropDown('notepad', '/home/roshan/repos/Write/Write', opacity=0.8, height=0.5),]))
 
