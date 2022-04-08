@@ -104,7 +104,15 @@ keys = [
     # Notification
     Key(['control'],'space',        lazy.function(command_run,'dunstctl close'),                        desc='Close notification'),
 
-    # Qtile chords
+    # System
+    KeyChord([mod,'shift'],'q',[
+        Key([mod],'n',              lazy.function(command_run,'shutdown now'),lazy.ungrab_all_chords(),                     desc='Shut down system'),
+        Key([mod],'s',              lazy.function(command_run,'systemctl hybrid-sleep'),lazy.ungrab_all_chords(),           desc='Hybrid sleep system'),
+        Key([mod],'h',              lazy.function(command_run,'systemctl hibernate'),lazy.ungrab_all_chords(),              desc='Hibernate system'),
+        ],
+        mode='System'),
+
+    # Qtile
     KeyChord([mod],'z',[
         Key([],'q',                 lazy.shutdown(),lazy.ungrab_all_chords(),                                               desc='Kill qtile'),
         Key([],'r',                 lazy.reload_config(),lazy.ungrab_all_chords(),                                          desc='Reload config'),
@@ -112,8 +120,8 @@ keys = [
         ],
         mode='Qtile'),
 
-    # Dunst chords
-    KeyChord([mod,'shift'],'d',[
+    # Dunst
+    KeyChord([mod],'d',[
         Key([],'h',                 lazy.function(command_run,'dunstctl history-pop'),lazy.ungrab_all_chords(),             desc='Show last notification'),
         Key([],'a',                 lazy.function(command_run,'dunstctl context'),lazy.ungrab_all_chords(),                 desc='Show context menu'),
         Key([],'c',                 lazy.function(command_run,'dunstctl close-all'),lazy.ungrab_all_chords(),               desc='Close all notifications'),
