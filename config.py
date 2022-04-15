@@ -1,5 +1,7 @@
 ###Imports###
 from typing import List  # noqa: F401
+import os, subprocess
+from functools import partial
 
 from libqtile import bar, layout, widget, hook, qtile, extension
 from libqtile.config import Click, Drag, Group, Key, KeyChord, Match, Screen, EzKey, ScratchPad, DropDown
@@ -7,8 +9,7 @@ from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 from libqtile.log_utils import logger
 from plasma import Plasma
-import os, subprocess # for the autostart
-from functools import partial
+
 from scripts.floating_window_snapping import move_snap_window
 from myWidget.cmus import Cmus as myCmus
 
