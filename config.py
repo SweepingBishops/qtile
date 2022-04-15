@@ -117,7 +117,7 @@ keys = [
     KeyChord([mod],'z',[
         Key([],'q',                 lazy.shutdown(),lazy.ungrab_all_chords(),                                               desc='Kill qtile'),
         Key([],'r',                 lazy.reload_config(),lazy.ungrab_all_chords(),                                          desc='Reload config'),
-        Key([],'l',                 lazy.function(command_run,'betterlockscreen --off 15 -l dim'),lazy.ungrab_all_chords(), desc='lock screen'),
+        Key([],'l',                 lazy.function(command_run,'betterlockscreen --off 15 -l dim -- -e &'),lazy.ungrab_all_chords(), desc='lock screen'),
         ],
         mode='Qtile'),
 
