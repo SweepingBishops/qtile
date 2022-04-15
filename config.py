@@ -13,7 +13,8 @@ from scripts.floating_window_snapping import move_snap_window
 from myWidget.cmus import Cmus as myCmus
 
 mod = "mod4"
-terminal = guess_terminal()
+#terminal = guess_terminal()
+terminal = '/usr/bin/kitty'
 
 ############my functions#############
 def command_run(qtile,command):
