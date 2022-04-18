@@ -31,6 +31,7 @@ keys = [
     Key([mod],'c',                  lazy.spawn("galculator"),                                       desc='Launch galculator'),
     Key([mod],'q',                  lazy.window.kill(),                                             desc='Kill focused window'),
     Key([mod],'w',                  lazy.function(command_run,'rofi -show drun'),                   desc='Launch rofi'),
+    Key([mod],'e',                  lazy.function(command_run,'emojicherrypick -c'),              desc='Runs emoji picker and copies to clipboard'),
     
     # Window focus
     Key([mod],'j',                  lazy.layout.left(),                                             desc='Move focus to the left'),
