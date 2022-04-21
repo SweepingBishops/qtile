@@ -12,6 +12,7 @@ from plasma import Plasma
 
 from scripts.floating_window_snapping import move_snap_window
 from myWidget.cmus import Cmus as myCmus
+from myWidget.my_volume_widget import MyVolumeWidget
 
 mod = "mod4"
 #terminal = guess_terminal()
@@ -229,7 +230,8 @@ screens = [
             widget.Sep(),
             myCmus(),
             widget.Sep(),
-            widget.PulseVolume(fmt='{}'),
+            #widget.PulseVolume(fmt='{}'),
+            MyVolumeWidget(),
             widget.Sep(),
             widget.Battery(format='{char}{percent:2.2%}',notify_below=10,charge_char=' ', discharge_char='', foreground='ffffff'),
             widget.Sep(),
