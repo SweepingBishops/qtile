@@ -55,7 +55,7 @@ keys = [
     Key([mod,'shift'],'j',          lazy.layout.shuffle_down().when(layout='columns'),              desc='Move window down'),
     Key([mod,'shift'],'Down',       lazy.layout.shuffle_down().when(layout='columns'),              desc='Move window down'),
     Key([mod,'shift'],'m',          lazy.group.unminimize_all(),                                    desc='Unminimize all the window in a group'),
-    Key([mod],'m',                  lazy.window.minimize(),                                         desc='Minimize window'),
+    Key([mod],'m',                  lazy.window.toggle_minimize(),                                  desc='Minimize window'),
     Key([mod],'f',                  lazy.window.toggle_floating(),                                  desc='Toggle floating'),
 
     # Window size
