@@ -44,6 +44,7 @@ keys = [
     Key([mod],'j',                  lazy.layout.down(),                                             desc='Move focus down'),
     Key([mod],'Down',               lazy.layout.down(),                                             desc='Move focus down'),
     Key([mod],'space',              lazy.layout.next(),                                             desc='Move focus to the next window'),
+    Key([mod],'o',                  lazy.next_screen()),
 
     # Window position
     Key([mod,'shift'],'h',          lazy.layout.shuffle_left().when(layout='columns'),              desc='Move window to the left'),
