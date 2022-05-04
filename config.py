@@ -96,48 +96,48 @@ keys = [
     Key([mod,'control'],'equal',    lazy.layout.reset_size().when(layout='plasma'),                 desc='Reset sizes of windows in plasma'),
 
     # XF86 commands
-    Key([],'XF86AudioLowerVolume',  lazy.function(command_run,'pulsemixer --change-volume -2'),         desc='Lower pulseaudio volume by 2%'),
-    Key([],'XF86AudioRaiseVolume',  lazy.function(command_run,'pulsemixer --change-volume +2'),         desc='Raise pulseaudio volume by 2%'),
-    Key([],'XF86AudioMute',         lazy.function(command_run,'pulsemixer --toggle-mute'),              desc='Toggle pulseaudio mute'),
+    Key([],'XF86AudioLowerVolume',  lazy.function(command_run,'pulsemixer --change-volume -2'),     desc='Lower pulseaudio volume by 2%'),
+    Key([],'XF86AudioRaiseVolume',  lazy.function(command_run,'pulsemixer --change-volume +2'),     desc='Raise pulseaudio volume by 2%'),
+    Key([],'XF86AudioMute',         lazy.function(command_run,'pulsemixer --toggle-mute'),          desc='Toggle pulseaudio mute'),
     Key([],'XF86MonBrightnessDown', lazy.function(command_run,'brightnessctl -d "intel_backlight" set 2%-'),    desc='Decrease monitor brightness by 2%'),
     Key([],'XF86MonBrightnessUp',   lazy.function(command_run,'brightnessctl -d "intel_backlight" set +2%'),    desc='Increase monitor brightness by 2%'),
-    Key([],'XF86AudioPlay',         lazy.function(command_run,'cmus-remote --pause'),                   desc='Cmus pause'),
-    Key([],'XF86AudioNext',         lazy.function(command_run,'cmus-remote --next'),                    desc='Cmus next'),
-    Key([],'XF86AudioPrev',         lazy.function(command_run,'cmus-remote --prev'),                    desc='Cmus prev'),
-    Key([],'Print',                 lazy.function(command_run,'flameshot full'),                        desc='Take a whole desktop screenshot'),
+    Key([],'XF86AudioPlay',         lazy.function(command_run,'playerctl play-pause'),              desc='Player pause'),
+    Key([],'XF86AudioNext',         lazy.function(command_run,'playerctl next'),                    desc='Player next'),
+    Key([],'XF86AudioPrev',         lazy.function(command_run,'playerctl prev'),                    desc='Player prev'),
+    Key([],'Print',                 lazy.function(command_run,'flameshot full'),                    desc='Take a whole desktop screenshot'),
     
     # Notification
-    Key(['control'],'space',        lazy.function(command_run,'dunstctl close'),                        desc='Close notification'),
+    Key(['control'],'space',        lazy.function(command_run,'dunstctl close'),                    desc='Close notification'),
 
     # System
     KeyChord([mod,'shift'],'q',[
-        Key([mod],'n',              lazy.function(command_run,'shutdown now'),lazy.ungrab_all_chords(),                     desc='Shut down system'),
-        Key([mod],'s',              lazy.function(command_run,'systemctl hybrid-sleep'),lazy.ungrab_all_chords(),           desc='Hybrid sleep system'),
-        Key([mod],'h',              lazy.function(command_run,'systemctl hibernate'),lazy.ungrab_all_chords(),              desc='Hibernate system'),
+        Key([mod],'n',              lazy.function(command_run,'shutdown now'),lazy.ungrab_all_chords(),             desc='Shut down system'),
+        Key([mod],'s',              lazy.function(command_run,'systemctl hybrid-sleep'),lazy.ungrab_all_chords(),   desc='Hybrid sleep system'),
+        Key([mod],'h',              lazy.function(command_run,'systemctl hibernate'),lazy.ungrab_all_chords(),      desc='Hibernate system'),
         ],
         mode='System'),
 
     # Qtile
     KeyChord([mod],'z',[
-        Key([],'q',                 lazy.shutdown(),lazy.ungrab_all_chords(),                                               desc='Kill qtile'),
-        Key([],'r',                 lazy.reload_config(),lazy.ungrab_all_chords(),                                          desc='Reload config'),
+        Key([],'q',                 lazy.shutdown(),lazy.ungrab_all_chords(),                                       desc='Kill qtile'),
+        Key([],'r',                 lazy.reload_config(),lazy.ungrab_all_chords(),                                  desc='Reload config'),
         Key([],'l',                 lazy.function(command_run,'betterlockscreen --off 15 -l dim -- -e &'),lazy.ungrab_all_chords(), desc='lock screen'),
         ],
         mode='Qtile'),
 
     # Dunst
     KeyChord([mod],'d',[
-        Key([],'h',                 lazy.function(command_run,'dunstctl history-pop'),lazy.ungrab_all_chords(),             desc='Show last notification'),
-        Key([],'a',                 lazy.function(command_run,'dunstctl context'),lazy.ungrab_all_chords(),                 desc='Show context menu'),
-        Key([],'c',                 lazy.function(command_run,'dunstctl close-all'),lazy.ungrab_all_chords(),               desc='Close all notifications'),
+        Key([],'h',                 lazy.function(command_run,'dunstctl history-pop'),lazy.ungrab_all_chords(),      desc='Show last notification'),
+        Key([],'a',                 lazy.function(command_run,'dunstctl context'),lazy.ungrab_all_chords(),          desc='Show context menu'),
+        Key([],'c',                 lazy.function(command_run,'dunstctl close-all'),lazy.ungrab_all_chords(),        desc='Close all notifications'),
         ],
         mode='Notification'),
 
     # ScratchPad
     KeyChord([mod,'shift'],'s',[
-        Key([],'c',                 lazy.group['scratchpad'].dropdown_toggle('calculator'),lazy.ungrab_all_chords(),       desc='Toggle calculator scratchpad'),
-        Key([],'k',                 lazy.group['scratchpad'].dropdown_toggle('terminal'),lazy.ungrab_all_chords(),         desc='Toggle terminal scratchpad'),
-        Key([],'n',                 lazy.group['scratchpad'].dropdown_toggle('notepad'),lazy.ungrab_all_chords(),          desc='Toggle notepad scratchpad'),
+        Key([],'c',                 lazy.group['scratchpad'].dropdown_toggle('calculator'),lazy.ungrab_all_chords(), desc='Toggle calculator scratchpad'),
+        Key([],'k',                 lazy.group['scratchpad'].dropdown_toggle('terminal'),lazy.ungrab_all_chords(),   desc='Toggle terminal scratchpad'),
+        Key([],'n',                 lazy.group['scratchpad'].dropdown_toggle('notepad'),lazy.ungrab_all_chords(),    desc='Toggle notepad scratchpad'),
         ],
         mode='Scratchpad'),
 
