@@ -1,0 +1,2 @@
+Widget for music players.
+    playerctl metadata --format "{{ title }} - {{ artist }}"
