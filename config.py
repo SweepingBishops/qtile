@@ -32,7 +32,8 @@ keys = [
     Key([mod],'c',                  lazy.spawn("galculator"),                                       desc='Launch galculator'),
     Key([mod],'q',                  lazy.window.kill(),                                             desc='Kill focused window'),
     Key([mod],'w',                  lazy.function(command_run,'rofi -show drun'),                   desc='Launch rofi'),
-    Key([mod],'e',                  lazy.function(command_run,'emojicherrypick -c'),              desc='Runs emoji picker and copies to clipboard'),
+    Key([mod],'e',                  lazy.function(command_run,'emojicherrypick -c'),                desc='Runs emoji picker and copies to clipboard'),
+    Key([mod],'p',                  lazy.spawn("rofi-pass"),                                        desc='Launches rofi password manager'),
     
     # Window focus
     Key([mod],'h',                  lazy.layout.left(),                                             desc='Move focus to the left'),
@@ -177,7 +178,7 @@ groups = [
     Group('7', position=7),
     Group('8', position=8, label='♫', matches=[Match(wm_class=['Rhythmbox'])]),
     Group('9', position=9, label='', spawn=["kitty --class 'ranger' -e ranger"], layout='max'),
-    Group('p'),
+    Group('w'),
     ]
 
 for i in groups:
