@@ -178,7 +178,7 @@ groups = [
     Group('7', position=7),
     Group('8', position=8, label='♫', matches=[Match(wm_class=['Rhythmbox'])]),
     Group('9', position=9, label='', spawn=["kitty --class 'ranger' -e ranger"], layout='max'),
-    Group('w'),
+    Group('0'),
     ]
 
 for i in groups:
