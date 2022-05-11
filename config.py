@@ -291,8 +291,3 @@ wmname = "qtile"
 def autostart():
     path = '/home/roshan/.config/qtile/scripts/autostart.sh'
     subprocess.call([path])
-
-@hook.subscribe.client_managed
-def move_to_group(client):
-    if client.window.get_wm_class()[0] != 'ranger':
-        client.group.cmd_toscreen()
