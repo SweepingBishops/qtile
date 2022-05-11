@@ -239,6 +239,7 @@ screens = [
             widget.Sep(),
             ],
             24,
+            background="#000000.85",  # 85% opacity
         ),
     ),
 ]
