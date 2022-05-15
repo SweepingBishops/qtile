@@ -2,7 +2,7 @@ import subprocess
 from libqtile.widget.base import ThreadPoolText
 
 class MyVolumeWidget(ThreadPoolText):
-    """A small widget to show the volumes of all sinks."""
+    """A small widget to show volumes"""
 
     defaults = [
             ("update_interval", 0.5, "Update time in seconds."),
