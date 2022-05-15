@@ -104,7 +104,7 @@ keys = [
     Key([],'XF86MonBrightnessUp',   lazy.function(command_run,'brightnessctl -d "intel_backlight" set +2%'),    desc='Increase monitor brightness by 2%'),
     Key([],'XF86AudioPlay',         lazy.function(command_run,'playerctl play-pause'),              desc='Player pause'),
     Key([],'XF86AudioNext',         lazy.function(command_run,'playerctl next'),                    desc='Player next'),
-    Key([],'XF86AudioPrev',         lazy.function(command_run,'playerctl prev'),                    desc='Player prev'),
+    Key([],'XF86AudioPrev',         lazy.function(command_run,'playerctl previous'),                desc='Player previous'),
     Key([],'Print',                 lazy.function(command_run,'flameshot full'),                    desc='Take a whole desktop screenshot'),
     
     # Notification
