@@ -236,7 +236,7 @@ screens = [
             widget.Battery(format='{char}{percent:2.2%}',notify_below=10,charge_char=' ', discharge_char='', foreground='ffffff'),
             widget.Sep(),
             ],
-            24,
+            22,
             background="#000000.85",  # 85% opacity
         ),
     ),
