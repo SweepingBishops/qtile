@@ -216,7 +216,7 @@ screens = [
             widget.Prompt(),
             widget.Chord(),
             widget.Spacer(mouse_callbacks={'Button1':partial(os.system,'flameshot gui')}),
-            widget.Clock(format='%d/%m %a %I:%M %p', mouse_callbacks={'Button1':partial(os.system,'zenity --calendar &')}),
+            widget.Clock(format='%I:%M %p %d/%m %a', mouse_callbacks={'Button1':partial(os.system,'zenity --calendar &')}),
             widget.Spacer(mouse_callbacks={'Button1':lazy.group['scratchpad'].dropdown_toggle('notepad')}),
             widget.WidgetBox(widgets=[
                                 widget.NetGraph(),
