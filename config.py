@@ -218,16 +218,6 @@ screens = [
             widget.Spacer(mouse_callbacks={'Button1':partial(os.system,'flameshot gui')}),
             widget.Clock(format='%I:%M %p %d/%m %a', mouse_callbacks={'Button1':partial(os.system,'zenity --calendar &')}),
             widget.Spacer(mouse_callbacks={'Button1':lazy.group['scratchpad'].dropdown_toggle('notepad')}),
-            widget.WidgetBox(widgets=[
-                                widget.NetGraph(),
-                                widget.Systray(),
-                                ],
-                            close_button_location='right',
-                            text_closed='',
-                            text_open='',
-                            fontsize=16,
-                            ),
-            widget.Sep(),
             myCmus(),
             widget.Sep(),
             #widget.PulseVolume(fmt='{}'),
@@ -240,6 +230,17 @@ screens = [
             background="#000000.85",  # 85% opacity
         ),
     ),
+    Screen(
+        top=bar.Bar([
+            widget.GroupBox(fontsize=18, highlight_method='line', visible_groups=['1','2','3','4','5','6','7','8','9']),
+            widget.Spacer(),
+            widget.Systray(),
+            widget.NetGraph(),
+            ],
+            22,
+            background="#000000.85",  # 85% opacity
+            )
+        ),
 ]
 
 # Drag floating layouts.
