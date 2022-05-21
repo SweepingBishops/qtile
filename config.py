@@ -240,7 +240,19 @@ screens = [
             background="#000000.85",  # 85% opacity
         ),
     ),
-]
+    Screen(
+        top=bar.Bar([
+            widget.GroupBox(fontsize=18, highlight_method='line', visible_groups=['1','2','3','4','5','6','7','8','9']),
+            widget.Spacer(),
+            widget.Clock(format='%I:%M %p %d/%m %a', mouse_callbacks={'Button1':partial(os.system,'zenity --calendar &')}),
+            widget.Spacer(),
+            widget.TextBox(text=' '),
+            ],
+            22,
+            background="#000000.85",  # 85% opacity
+            ),
+        ),
+    ]
 
 # Drag floating layouts.
 mouse = [
