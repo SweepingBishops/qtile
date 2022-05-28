@@ -1,5 +1,6 @@
 import subprocess
 from libqtile.widget.base import ThreadPoolText
+from libqtile.lazy import lazy
 
 class MyVolumeWidget(ThreadPoolText):
     """A small widget to show volumes"""
@@ -11,7 +12,7 @@ class MyVolumeWidget(ThreadPoolText):
 
     def __init__(self, **config):
         ThreadPoolText.__init__(self, "", **config)
-        MyVolumeWidget.defaults.append(("mouse_callbacks", {'Button1': self.toggle_mute, 'Button3' : self.next_display_sink, 'Button4': self.raise_volume, 'Button5': self.lower_volume}, "Sets mouse callbacks."),)
+        MyVolumeWidget.defaults.append(("mouse_callbacks", {'Button1': self.toggle_mute, 'Button2' : self.next_display_sink, 'Button3' : lazy.spawn('playerctl play-pause'), 'Button4': self.raise_volume, 'Button5': self.lower_volume}, "Sets mouse callbacks."),)
         self.add_defaults(MyVolumeWidget.defaults)
 
     def toggle_mute(self):
