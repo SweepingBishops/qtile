@@ -229,6 +229,7 @@ screens = [
                             ),
             widget.Sep(),
             myCmus(),
+            #widget.Mpris2(),
             widget.Sep(),
             #widget.PulseVolume(fmt='{}'),
             MyVolumeWidget(),
