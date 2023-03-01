@@ -232,6 +232,7 @@ screens = [
             widget.Mpris2(display_metadata=["xesam:title", "xesam:artist"],
                           max_chars=50,
                           no_metadata_text="---",
+                          scroll=True,
                           ),
             widget.Sep(),
             #widget.PulseVolume(fmt='{}'),
