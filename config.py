@@ -16,7 +16,8 @@ from myWidget.my_volume_widget import MyVolumeWidget
 
 mod = "mod4"
 #terminal = guess_terminal()
-terminal = '/usr/bin/kitty'
+#terminal = '/usr/bin/kitty'
+terminal = '/usr/bin/alacritty'
 
 ############my functions#############
 ######################################
