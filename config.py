@@ -5,10 +5,10 @@ from functools import partial
 
 from libqtile import bar, layout, widget, hook, qtile, extension
 from libqtile.config import Click, Drag, Group, Key, KeyChord, Match, Screen, EzKey, ScratchPad, DropDown
-from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 from libqtile.log_utils import logger
-from plasma import Plasma
+from libqtile.lazy import lazy
+#from plasma import Plasma
 
 from scripts.floating_window_snapping import move_snap_window
 from myWidget.cmus import Cmus as myCmus
@@ -195,9 +195,9 @@ groups.append(ScratchPad('scratchpad', [DropDown('calculator', 'galculator'),
 
 ###Layouts###
 layouts = [
-    Plasma(border_normal='#220000', border_focus='#881111', border_normal_fixed='#220000', border_focus_fixed='#881111',border_width=2,border_width_single=0),
+    #Plasma(border_normal='#220000', border_focus='#881111', border_normal_fixed='#220000', border_focus_fixed='#881111',border_width=2,border_width_single=0),
+    layout.Columns(border_focus_stack=['#d75f5f', '#8f3d3d'], border_width=2, margin=0, margin_on_single=0),
     layout.Max(),
-    #layout.Columns(border_focus_stack=['#d75f5f', '#8f3d3d'], border_width=2, margin=0, margin_on_single=0),
     #layout.MonadWide(border_focus='#881111',single_border_width=0),
     ]
 
